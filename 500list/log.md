@@ -1,0 +1,1 @@
+1) Get 1-500 most frequent kanji, and (unsorted) jlpt n5-n3 kanji
