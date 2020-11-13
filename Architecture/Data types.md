@@ -6,20 +6,29 @@ There are three possible types of prototypes:
 
 What fields will be included in a particular prototype depends on the **scope** of the **field** and the **type** of the prototype.
 
+During review cards have 2 sides for R and 3 sides for K and V:
+* front: **characters, radical_picture, type**
+* back#1: **meanings, meaning_mnemonic, components, extra_data, type**)
+* back#2: **readings, reading_mnemonic, components, extra_data, type**)
+
+
 ### Prototype Data Structure:
-| Field | Data type | Scope | Description |
-| --- | --- | --- | --- |
-| id | number | RKV | Document ID |
-| type | string | RKV | R - radical, K - kanji, V - vocabulary |
-| is_hidden | boolean | RKV | Hidden prototypes will no longer be offered as a lesson for new learners but still will be available for those who already learned it |
-| position | number | RKV | Position of prototype in it's level. This allows to finetune the user experience |
-| level | number | RKV | Level on which the prototype appears |
-| components | array of numbers | KV | Null for radicals, radicals for kanji, kanji for vocabulary |
-| meaning_mnemonic | string | RKV | Meaning mnemonic/Name mnemonic |
-| meanings | array of documents | RKV | ***Defined separately below*** |
-| reading_mnemonic | string | KV | Reading mnemocic |
-| readings | array of documents | KV |  ***Defined separately below*** |
-| url_handle | string | RKV | Used to generate URL together with type. Radicals use their meaning, downcased. Kanji and vocabulary use their characters. 
+| Field | Data type | Scope | Allow null | Description |
+| --- | --- | --- | --- | --- |
+| id | number | RKV | - | Document ID |
+| type | string | RKV | - | R - radical, K - kanji, V - vocabulary |
+| is_hidden | boolean | RKV | RKV | Hidden prototypes will no longer be offered as a lesson for new learners but still will be available for those who already learned it |
+| position | number | RKV | - | Position of prototype in it's level. This allows to finetune the user experience |
+| level | number | RKV | - | Level on which the prototype appears |
+| components | array of numbers | KV | R | Null for radicals, id of radicals for kanji, id of kanji for vocabulary |
+| characters | string | RKV | R |String of unicode characters to represent the prototype, this will be shown to the user as "front of the card" during review.
+| radical_picture | string | R | RKV |Picture would be stored in it's base64 form, that field applies only to radicals that don't have appropriate unicode **characters** to represent them |
+| meaning_mnemonic | string | RKV | - | Meaning mnemonic/Name mnemonic |
+| meanings | array of documents | RKV | - | ***Defined separately below*** |
+| reading_mnemonic | string | KV | - | Reading mnemocic |
+| readings | array of documents | KV | R |***Defined separately below*** |
+| extra_data | string | RKV | RKV | Could contain data like V's part of speech or something else defined in the future |
+| url_handle | string | RKV | - |Used to generate URL together with type. Radicals use their meaning, downcased. Kanji and vocabulary use their characters. 
 
 #### Meaning Data Structure:
 | Field | Data type | Scope | Description |
