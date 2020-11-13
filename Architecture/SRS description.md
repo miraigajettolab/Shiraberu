@@ -9,13 +9,17 @@
 
 * **Stage 5:** The pass stage (5) is used when one item is necessary for the understanding of other new item. In other words, if item A needs item B then you have to take item B to stage 5 before you can take item A from stage 0 to 1.
 
+* **What is considered to be a successful review in an item where multiple parts are independently reviewed:**
+For example, the vocabulary item requires separate input of translation and reading):
+*If all parts of the review are individually correct then the review is **successful**, if one or more part is incorrect then the whole review is considered **failed***
+
 * **Calculating the next stage after successful review of an item:**
 ***next_stage** = current_stage + 1*
 
 * **Calculating the next stage after failed review of an item:**
 ***next_stage** = current_stage - (ceil(number_of_incorrect_answers/2) * penalty)*
 **penalty:** is 2 if the item is passed and 1 if it didn't (current_stage >= 5 ? 2 : 1)
-**number_of_incorrect_answers:** means incorrect answers before a correct one, after correct answer is reached that variable is set back to 0. Every item stores that field.
+**number_of_incorrect_answers:** means incorrect answers before a correct one, after correct answer is reached that variable is set back to 0. This field is not stored forever in a database and only exist locally during a single review session.
 
 * **Burning an item:** After the transition from 8 to 9 the item is considered to be burned and is no longer reviewed (unless resurrected, which sets stage back to 1). 
 ---
