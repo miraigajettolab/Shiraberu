@@ -1,0 +1,51 @@
+{
+    "id":0,
+    "description": "This is the scheme of the spaced repetition system for shirabe.ru. Stage 0 means that the item hasn't yet been learnt. Stage 1 means that the item is the stage that item gets just after the user learns it (or fails from some higher stage). Transition time from stage to stage+1 is expressed in seconds. For example time of transition from stage 1 to stage 2 is 14400 seconds or 4 hours. Other transition intervals are approx: 8 hours, 1 day, 2 days, 1 week, 2weeks, 1 month, 4 months. After transition from 8 to 9 the item is considered to be burned and is no loger reviewed (unless resurrected). The pass stage (5) is used when one item is neccesary for the understanding of other new item. In other words if the item A needs item B then you have to take item B to the stage 5 before you can take item A from stage 0 to 1.",
+    "new": 0,
+    "start": 1,
+    "pass": 5,
+    "burn": 9,
+    "stages": [
+        {
+        "interval": null,
+        "stage": 0
+        },
+        {
+        "interval": 14400,
+        "stage": 1
+        },
+        {
+        "interval": 28800,
+        "stage": 2
+        },
+        {
+        "interval": 82800,
+        "stage": 3
+        },
+        {
+        "interval": 169200,
+        "stage": 4
+        },
+        {
+        "interval": 601200,
+        "stage": 5
+        },
+        {
+        "interval": 1206000,
+        "stage": 6
+        },
+        {
+        "interval": 2588400,
+        "stage": 7
+        },
+        {
+        "interval": 10364400,
+        "stage": 8
+        },
+        {
+        "interval": null,
+        "stage": 9
+        }
+    ]
+    
+}
