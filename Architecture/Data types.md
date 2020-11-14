@@ -58,10 +58,22 @@ During review cards have 2 sides for R and 3 sides for K and V (this is shown wh
 *TODO*
 
 ### Item Data Structure:
-| Field | Type | Description |
-| ----- |:----:| -----------:|
-| id | number | Document ID |
-| prototype_id | reference | Document ID of item's prototype |
-| aux_meanings | array of strings | Meanings added by the user as synonyms | 
-| reading_note | string | Reading notes added by the user | 
-| meaning_note | string | Meaning notes added by the user | 
+| Field | Type | Allow nulls | Description |
+| --- | --- | --- | --- |
+| id | number | - | Document ID |
+| prototype_id | reference | - | Document ID of item's prototype |
+| aux_meanings | array of strings | allow | Meanings added by the user as synonyms | 
+| reading_note | string | allow | Reading notes added by the user | 
+| meaning_note | string | allow | Meaning notes added by the user | 
+| srs_stage | number | - | Current SRS stage number |
+| created_at | timestamp | - | Timestamp of creation |
+| burned_at | timestamp | allow | Timestamp of retiring |
+| due_at | timestamp | allow |Timestamp of the next available review |
+| meaning_rev | number | could be always 0 but still exists | Number of all meaning reviews |
+| meaning_rev_correct | number | could be always 0 but still exists | Number of correct meaning reviews |
+| meaning_rev_streak | number | could be always 0 but still exists | Number of correct meaning reviews in a row |
+| meaning_rev_max_streak | number | could be always 0 but still exists | Max number of correct meaning reviews in a row |
+| reading_rev | number | could be always 0 but still exists | Number of all reading reviews |
+| reading_rev_correct | number | could be always 0 but still exists | Number of correct reading reviews |
+| reading_rev_streak | number | could be always 0 but still exists | Number of correct reading reviews in a row |
+| reading_rev_max_streak | number | could be always 0 but still exists | Max number of correct reading reviews in a row |
