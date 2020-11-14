@@ -20,7 +20,7 @@ During review cards have 2 sides for R and 3 sides for K and V (this is shown wh
 | is_hidden | boolean | RKV | RKV | Hidden prototypes will no longer be offered as a lesson for new learners but still will be available for those who already learned it |
 | position | number | RKV | - | Position of prototype in it's level. This allows to finetune the user experience |
 | level | number | RKV | - | Level on which the prototype appears |
-| components | array of numbers | KV | R | Null for radicals, id of radicals for kanji, id of kanji for vocabulary |
+| components | array of references | KV | R | Null for radicals, id of radicals for kanji, id of kanji for vocabulary |
 | characters | string | RKV | R |String of unicode characters to represent the prototype, this will be shown to the user as "front of the card" during review.
 | radical_picture | string | R | RKV |Picture would be stored in it's base64 form, that field applies only to radicals that don't have appropriate unicode **characters** to represent them |
 | meaning_mnemonic | string | RKV | - | Meaning mnemonic/Name mnemonic |
@@ -55,7 +55,13 @@ During review cards have 2 sides for R and 3 sides for K and V (this is shown wh
 
 ---
 # Item Description
-*TODO*
+An Item is a representation of a prototype for a certain user.
+
+Item is created from prototype when **prototype.level <= user.current_level** *AND* **all items with ids of prototype.components[].id have srs_stage >= 0** *AND* **the item with prototype_id of prototype does not exist**. 
+
+At the moment of creation all **..._rev_...** fields are set to 0. The current [Unix time](https://en.wikipedia.org/wiki/Unix_time) is stored in the **created_at**. **srs_stage** is set to 0.
+
+User could add meaning to the array **aux_meanings** that will be accepted during review as correct. User can also add notes (**reading_note** and **meaning_note**).
 
 ### Item Data Structure:
 | Field | Type | Allow nulls | Description |
