@@ -42,6 +42,7 @@ During review cards have 2 sides for R and 3 sides for K and V (this is shown wh
 | --- | --- | --- | --- |
 | kana | string | KV | All readings are stored as hiragana + special characters |
 | is_primary | boolean | KV | Exactly one element of an array of meanings must be primary, array is guaranteed to have at least one element |
+| is_accepted | boolean | K | We need this field because there are readings that we didn't teach to the user during the kanji lesson that are still readings that exist in the world. We won't accept them during review but we won't mark the review as incorrect either. Instead we will show the user a message saying that we're looking for a different reading |
 | is_on | boolean | K | onyomi reading (applicable only to kanji), ***check the note below*** |
 | is_kun | boolean | K | kunyomi reading (applicable only to kanji), ***check the note below*** |
 
