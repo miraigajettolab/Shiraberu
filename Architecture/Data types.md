@@ -6,10 +6,10 @@ There are three possible types of prototypes:
 
 What fields will be included in a particular prototype depends on the **scope** of the **field** and the **type** of the prototype.
 
-During review cards have 2 sides for R and 3 sides for K and V:
+During review cards have 2 sides for R and 3 sides for K and V (this is shown when user wants more information during review session):
 * front: **characters, radical_picture, type**
-* back#1: **meanings, meaning_mnemonic, components, extra_data, type**)
-* back#2: **readings, reading_mnemonic, components, extra_data, type**)
+* back#1: **meanings, meaning_mnemonic, components, sentences, extra_data, type**)
+* back#2: **readings, reading_mnemonic, components, sentences, extra_data, type**)
 
 
 ### Prototype Data Structure:
@@ -27,6 +27,7 @@ During review cards have 2 sides for R and 3 sides for K and V:
 | meanings | array of documents | RKV | - | ***Defined separately below*** |
 | reading_mnemonic | string | KV | - | Reading mnemocic |
 | readings | array of documents | KV | R |***Defined separately below*** |
+| sentences | array of documents | V | RK | ***Defined separately below*** |
 | extra_data | string | RKV | RKV | Could contain data like V's part of speech or something else defined in the future |
 | url_handle | string | RKV | - |Used to generate URL together with type. Radicals use their meaning, downcased. Kanji and vocabulary use their characters. 
 
@@ -45,6 +46,12 @@ During review cards have 2 sides for R and 3 sides for K and V:
 | is_kun | boolean | K | kunyomi reading (applicable only to kanji), ***check the note below*** |
 
 ***note:*** If both *is_on and is_kun* are false then reading is conidered [nanori](https://en.wikipedia.org/wiki/Nanori) this happens only for vocabulary consisting of someone's name, and is given as an option for completeness.
+
+#### Sentence Data Structure:
+| Field | Data type | Scope | Description |
+| --- | --- | --- | --- |
+| text | string | V | String of unicode characters (mainly kanji and kana) |
+| translation | string | V | String of unicode characters (mainly cyrillic) |
 
 ---
 # Item Description
