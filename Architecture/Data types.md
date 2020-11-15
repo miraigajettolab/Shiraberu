@@ -62,7 +62,7 @@ An Item is a representation of a prototype for a certain user.
 * At the moment of creation all **..._rev_...** fields are set to 0 and **srs_stage** is set to 0.
 * Item is available as a lesson when its **prototype.level <= user.current_level** *AND* **all items with ids of prototype.components[].id have srs_stage >= 5**
 * After a successful lesson we change item's **srs_stage from 0 to 1**, set **due_at** to current [unix time](https://en.wikipedia.org/wiki/Unix_time) + [**stages[1].interval**](https://github.com/miraigajettolab/Shiraberu/blob/master/Architecture/srs-intervals.json) and set **learned_at** to current unix time.
-* Item is reviewed when its **due_at <= [Current Unix Time](https://en.wikipedia.org/wiki/Unix_time)** 
+* Item is reviewed when its **due_at <= Current [Unix Time](https://en.wikipedia.org/wiki/Unix_time)** 
 * After item's review **srs_stage** is incremented if it was successful. And equals to current_stage - (current_stage >= 5 ? 2 : 1) if failed.
   * After **srs_stage** is updated and is < 9, **due_at** is set to current unix time + [**stages[srs_stage].interval**](https://github.com/miraigajettolab/Shiraberu/blob/master/Architecture/srs-intervals.json)
   * If **srs_stage** is 9 then **burned_at** is set to current unix time. The item is considered to be remembered and is no longer reviewed.
