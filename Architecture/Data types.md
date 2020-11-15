@@ -58,9 +58,15 @@ During review cards have 2 sides for R and 3 sides for K and V (this is shown wh
 # Item Description
 An Item is a representation of a prototype for a certain user.
 
-Item is created from prototype when **prototype.level <= user.current_level** *AND* **all items with ids of prototype.components[].id have srs_stage >= 0** *AND* **the item with prototype_id of prototype does not exist**. 
-
-At the moment of creation all **..._rev_...** fields are set to 0. The current [Unix time](https://en.wikipedia.org/wiki/Unix_time) is stored in the **created_at**. **srs_stage** is set to 0.
+* Items are created for every prototype when user is created and stored for every user. If new prototypes are added after user creation, then new items are automatically created for every existing user as well.
+* At the moment of creation all **..._rev_...** fields are set to 0 and **srs_stage** is set to 0.
+* Item is available as a lesson when its **prototype.level <= user.current_level** *AND* **all items with ids of prototype.components[].id have srs_stage >= 5**
+* After a successful lesson we change item's **srs_stage from 0 to 1**, set **due_at** to current [unix time](https://en.wikipedia.org/wiki/Unix_time) + [**stages[1].interval**](https://github.com/miraigajettolab/Shiraberu/blob/master/Architecture/srs-intervals.json) and set **learned_at** to current unix time.
+* Item is reviewed when its **due_at <= [Current Unix Time](https://en.wikipedia.org/wiki/Unix_time)** 
+* After item's review **srs_stage** is incremented if it was successful. And equals to current_stage - (current_stage >= 5 ? 2 : 1) if failed.
+  * After **srs_stage** is updated and is < 9, **due_at** is set to current unix time + [**stages[srs_stage].interval**](https://github.com/miraigajettolab/Shiraberu/blob/master/Architecture/srs-intervals.json)
+  * If **srs_stage** is 9 then **burned_at** is set to current unix time. The item is considered to be remembered and is no longer reviewed.
+  * all **..._rev_...** fields are set according to the success/failure of a review.
 
 User could add meaning to the array **aux_meanings** that will be accepted during review as correct. User can also add notes (**reading_note** and **meaning_note**).
 
@@ -73,7 +79,7 @@ User could add meaning to the array **aux_meanings** that will be accepted durin
 | reading_note | string | allow | Reading notes added by the user | 
 | meaning_note | string | allow | Meaning notes added by the user | 
 | srs_stage | number | - | Current SRS stage number |
-| created_at | timestamp | - | Timestamp of creation |
+| learned_at | timestamp | - | Timestamp of first transition from srs_stage = 0 to srs_stage = 1 |
 | burned_at | timestamp | allow | Timestamp of retiring |
 | due_at | timestamp | allow |Timestamp of the next available review |
 | meaning_rev | number | could be always 0 but still exists | Number of all meaning reviews |
