@@ -34,6 +34,17 @@ This project is a web-based spaced repetion system to fascilitate the process of
 
 ### 1.2 Intended Use
 
+The user will use the site (shirabe.ru) to interact with items (radicals, kanji or vocabulary) in Russian and Japanese.
+
+###### Major actions user can do with items are:
+  * Learn an item (Lesson)
+  * Check if user still remembers an item after some time and decide when to check again (Review)
+  * Browse Items by levels and Look up items
+  * Add user created content to an item (notes and synonyms)
+
+###### Users have levels, so do items
+To move from level to level user has to bring **srs_stage** of 90% of current level's kanji to pass (level 5).
+
 ### 1.3 Scope
 
 # 2. Overall Description
