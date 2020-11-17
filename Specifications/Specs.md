@@ -60,6 +60,19 @@ The scope of work is:
 
 ### 2.1 User Needs
 
+During lessons user needs to be able to clearly see all relevant data, we will try to pay attention to this need during frontend development.
+
+During reviews user several needs:
+* During the review session user will have to input information in both hiragana and cyrillics, the user experience will be much better if we could eliminate the need to switch between input methods. This need will be solved using a subproject called [KiKana](https://github.com/miraigajettolab/kikana) that will enable user to input hiragana using cyrillics.
+* If user inteds to input one of accepted values but makes a typo during review's meaning check. We want to automatically understand that it's a typo, not a mistake and mark review as correct. We have to find distance between the input and each accepted meaning and decide if we should accept it as a correct answer. We will use a modified [Damerau Levenshtein distance](https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance) algorithm to solve it.
+* User needs to be able to add his own synonyms and notes to an item during review.
+
+User needs to be able to have access to each item for reference.
+* We will create a page for each item. User will have two ways to access it - through look up (searchbar) and browsing by levels.
+* Each item page should have statistics of past reviews, timestamp of next review, user added content and other relevant data.
+
+Item pages should enable user to add his own synonyms and notes to an item.
+
 ### 2.2 Assumptions and Dependencies
 
 # 3. System Features and Requirements
