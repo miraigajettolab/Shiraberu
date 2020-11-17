@@ -43,9 +43,18 @@ The user will use the site (shirabe.ru) to interact with items (radicals, kanji 
   * Add user created content to an item (notes and synonyms)
 
 ###### Users have levels, so do items
-To move from level to level user has to bring **srs_stage** of 90% of current level's kanji to pass (level 5).
+To unlock next level's items user has to level up. To move do so user has to bring **srs_stage** of 90% of current level's kanji to pass (level 5).
 
 ### 1.3 Scope
+
+The scope of work is:
+* To develop:
+  * Backend to store and manipulate data
+  * Utility that will help to fill the model with [prototypes](https://github.com/miraigajettolab/Shiraberu/blob/master/Architecture/Data%20types.md)
+  * Fronted web application for the User, which will be able to do *major actions* described in **1.2**
+* To test all parts along the way using Unit Testing and Integration Testing
+* To Add several levels of about 100 *production grade* prototypes per level to the service using utility developed earlier
+* Test the user experience (by developers and/or real users) and gather feedback
 
 # 2. Overall Description
 
