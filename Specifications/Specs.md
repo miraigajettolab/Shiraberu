@@ -62,9 +62,9 @@ The scope of work is:
 
 During lessons user needs to be able to clearly see all relevant data, we will try to pay attention to this need during frontend development.
 
-During reviews user several needs:
-* During the review session user will have to input information in both hiragana and cyrillics, the user experience will be much better if we could eliminate the need to switch between input methods. This need will be solved using a subproject called [KiKana](https://github.com/miraigajettolab/kikana) that will enable user to input hiragana using cyrillics.
-* If user inteds to input one of accepted values but makes a typo during review's meaning check. We want to automatically understand that it's a typo, not a mistake and mark review as correct. We have to find distance between the input and each accepted meaning and decide if we should accept it as a correct answer. We will use a modified [Damerau Levenshtein distance](https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance) algorithm to solve it.
+During reviews user has several needs:
+* During the review session user will have to input information in both hiragana and cyrillics. UX will be much better if we could eliminate the need to switch between input methods. This need will be solved using a subproject called [KiKana](https://github.com/miraigajettolab/kikana) that will enable user to input hiragana using cyrillics.
+* If user intends to input one of accepted values but makes a typo during review's meaning check. We want to automatically understand that it's a typo, not a mistake and mark review as correct. We have to find distance between the input and each accepted meaning and decide if we should accept it as a correct answer. We will use a modified [Damerau Levenshtein distance](https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance) algorithm to solve it.
 * User needs to be able to add his own synonyms and notes to an item during review.
 
 User needs to be able to have access to each item for reference.
