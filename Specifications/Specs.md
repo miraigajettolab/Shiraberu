@@ -2,7 +2,7 @@
 
 This project is a web-based spaced repetion system to fascilitate the process of kanji learning for russian speaking users.
 
-### 1.1 Problem Specific Definitions and Acronyms
+### 1.1 Project Specific Definitions and Acronyms
 
  **SRS** - [Spaced Repetition](https://en.wikipedia.org/wiki/Spaced_repetition) System - a set of rules to impliment spaced repetion. Detailed SRS description could be found [here](https://github.com/miraigajettolab/Shiraberu/blob/master/Architecture/SRS%20description.md)
  
