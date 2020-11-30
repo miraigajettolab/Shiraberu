@@ -17,7 +17,7 @@ During review cards have 2 sides for R and 3 sides for K and V (this is shown wh
 | --- | --- | --- | --- | --- |
 | id | number | RKV | - | Document ID |
 | type | string | RKV | - | R - radical, K - kanji, V - vocabulary |
-| is_hidden | boolean | RKV | RKV | Hidden prototypes will no longer be offered as a lesson for new learners but still will be available for those who already learned it |
+| is_hidden | boolean | RKV | - | Hidden prototypes will no longer be offered as a lesson for new learners but still will be available for those who already learned it |
 | position | number | RKV | - | Position of prototype in it's level. This allows to finetune the user experience |
 | level | number | RKV | - | Level on which the prototype appears |
 | components | array of references | KV | R | Null for radicals, id of radicals for kanji, id of kanji for vocabulary |
@@ -25,7 +25,7 @@ During review cards have 2 sides for R and 3 sides for K and V (this is shown wh
 | radical_picture | string | R | RKV |Picture would be stored in it's base64 form, that field applies only to radicals that don't have appropriate unicode **characters** to represent them |
 | meaning_mnemonic | string | RKV | - | Meaning mnemonic/Name mnemonic |
 | meanings | array of documents | RKV | - | ***Defined separately below*** |
-| reading_mnemonic | string | KV | - | Reading mnemocic |
+| reading_mnemonic | string | KV | R | Reading mnemocic |
 | readings | array of documents | KV | R |***Defined separately below*** |
 | sentences | array of documents | V | RK | ***Defined separately below*** |
 | extra_data | string | RKV | RKV | Could contain data like V's part of speech or something else defined in the future |
