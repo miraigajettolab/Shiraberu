@@ -29,7 +29,7 @@ During review cards have 2 sides for R and 3 sides for K and V (this is shown wh
 | readings | array of documents | KV | R |***Defined separately below*** |
 | sentences | array of documents | V | RK | ***Defined separately below*** |
 | extra_data | string | RKV | RKV | Could contain data like V's part of speech or something else defined in the future |
-| url_handle | string | RKV | - |Used to generate URL together with type. Radicals use their meaning, downcased. Kanji and vocabulary use their characters. 
+| url_handle | string | RKV | - |Used to generate URL together with type. Radicals use their meaning, downcased. Kanji and vocabulary use their characters. e.g **k/悲** or **v/悲しい**
 
 #### Meaning Data Structure:
 | Field | Data type | Scope | Description |
