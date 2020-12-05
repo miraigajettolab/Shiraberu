@@ -6,6 +6,9 @@ import InputLabel from '@material-ui/core/InputLabel';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Alert from '@material-ui/lab/Alert';
+import { ThemeProvider } from '@material-ui/core/styles';
+
+
 
 class SignIn extends React.Component {
     constructor() {
@@ -36,7 +39,7 @@ class SignIn extends React.Component {
             let rusMessage
             switch (e.code) {
                 case "auth/invalid-email":
-                    rusMessage = "Недействительный email"
+                    rusMessage = "Некорректный email"
                     break;
                 case "auth/wrong-password":
                     rusMessage = "Неправильный пароль"
@@ -62,6 +65,7 @@ class SignIn extends React.Component {
     render() {
         return (
             <div className="SingIn" style={{maxWidth: "60%", marginLeft: "20%", marginTop: "10%"}}>
+                <ThemeProvider theme={this.props.theme}>
                 <Alert 
                     style={{marginBottom: "20px", visibility: this.state.showAlert ? "visible": "hidden"}} 
                     elevation={6} 
@@ -88,13 +92,13 @@ class SignIn extends React.Component {
                         onChange = {this.changeHandler}
                     />
                     <Button 
-                        style = {{width: "100%", marginBottom: "10px"}}
+                        style = {{height: "48px", width: "100%", marginBottom: "10px"}}
                         variant="contained"
                         color="primary"
                         onClick={this.signInHandler}>
                             Войти
                     </Button>
-                    <div style = {{display: "flex", justifyContent: "space-between"}}>
+                    <div style = {{height: "48px", display: "flex", justifyContent: "space-between"}}>
                         <Button
                             style = {{width: "50%", marginRight: "5px"}} 
                             variant="contained" 
@@ -111,6 +115,7 @@ class SignIn extends React.Component {
                         </Button>
                     </div>            
                 </FormControl>
+                </ThemeProvider>
             </div>
         )
     }
