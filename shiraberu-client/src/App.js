@@ -1,6 +1,7 @@
 import './App.css';
 import React from "react"
 import SignIn from "./panels/signIn/SignIn"
+import SignUp from "./panels/signUp/SignUp"
 import * as firebase from "firebase"
 import { createMuiTheme } from '@material-ui/core/styles';
 
@@ -50,6 +51,8 @@ class App extends React.Component {
         return <div>もぐもぐ～おかゆ～！</div>
       case "SignIn":
         return <SignIn activePanelHandler = {this.activePanelHandler} theme={theme}/>
+      case "SignUp":
+        return <SignUp activePanelHandler = {this.activePanelHandler} theme={theme}/>
       default:
         return <h1>Что-то пошло не так 🤕</h1>
   }

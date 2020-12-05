@@ -16,7 +16,7 @@ class SignIn extends React.Component {
         this.state = {
             showAlert: false,
             alertMsg: "",
-            alertSeverity: "",
+            alertSeverity: "info",
             email:"",
             password:""
         }
@@ -34,7 +34,7 @@ class SignIn extends React.Component {
         const auth = firebase.auth();
         const promise = auth.signInWithEmailAndPassword(this.state.email, this.state.password)
         promise
-        .then(event => this.props.activePanelHandler("Default", event))
+        .then(event => this.props.activePanelHandler("Home", event))
         .catch(e => {
             let rusMessage
             switch (e.code) {
@@ -110,7 +110,7 @@ class SignIn extends React.Component {
                             style = {{width: "50%", marginLeft: "5px"}} 
                             variant="contained" 
                             color="secondary" 
-                            onClick={event => this.props.activePanelHandler("RegForm", event)}>
+                            onClick={event => this.props.activePanelHandler("SignUp", event)}>
                                 Зарегистрироваться
                         </Button>
                     </div>            
