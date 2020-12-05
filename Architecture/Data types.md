@@ -18,14 +18,14 @@ During review cards have 2 sides for R and 3 sides for K and V (this is shown wh
 | id | number | RKV | - | Document ID |
 | type | string | RKV | - | R - radical, K - kanji, V - vocabulary |
 | is_hidden | boolean | RKV | - | Hidden prototypes will no longer be offered as a lesson for new learners but still will be available for those who already learned it |
-| position | number | RKV | - | Position of prototype in it's **Type** in it's level. This allows to finetune the user experience |
+| position | number | RKV | - | Position of prototype in it's **Type** in it's level. This allows to fine-tune the user experience |
 | level | number | RKV | - | Level on which the prototype appears |
 | components | array of references | KV | R | Null for radicals, id of radicals for kanji, id of kanji for vocabulary |
 | characters | string | RKV | R |String of unicode characters to represent the prototype, this will be shown to the user as "front of the card" during review.
 | radical_picture | string | R | RKV |Picture would be stored in it's base64 form, that field applies only to radicals that don't have appropriate unicode **characters** to represent them |
 | meaning_mnemonic | string | RKV | - | Meaning mnemonic/Name mnemonic |
 | meanings | array of documents | RKV | - | ***Defined separately below*** |
-| reading_mnemonic | string | KV | R | Reading mnemocic |
+| reading_mnemonic | string | KV | R | Reading mnemonic |
 | readings | array of documents | KV | R |***Defined separately below*** |
 | sentences | array of documents | V | RK | ***Defined separately below*** |
 | extra_data | string | RKV | RKV | Could contain data like V's part of speech or something else defined in the future |
@@ -46,7 +46,7 @@ During review cards have 2 sides for R and 3 sides for K and V (this is shown wh
 | is_on | boolean | K | onyomi reading (applicable only to kanji), ***check the note below*** |
 | is_kun | boolean | K | kunyomi reading (applicable only to kanji), ***check the note below*** |
 
-***note:*** If both *is_on and is_kun* are false then reading is conidered [nanori](https://en.wikipedia.org/wiki/Nanori) this happens only for vocabulary consisting of someone's name, and is given as an option for completeness.
+***note:*** If both *is_on and is_kun* are false then reading is considered [nanori](https://en.wikipedia.org/wiki/Nanori) this happens only for vocabulary consisting of someone's name, and is given as an option for completeness.
 
 #### Sentence Data Structure:
 | Field | Data type | Scope | Description |

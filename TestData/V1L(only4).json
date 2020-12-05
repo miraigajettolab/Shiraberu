@@ -15,7 +15,7 @@
                 "is_primary": true
             }
         ],
-        "reading_mnemonic": "When a vocab is alone like this with no okurigana (hiragana attached to the kanji) it usually uses its kun'yomi reading. Numbers are an exception, though, and use the on'yomi reading. You learned the on'yomi reading when you learned this kanji, so you already know that the reading for this vocab is さん.",
+        "reading_mnemonic": "When a vocab is alone like this with no okurigana (hiragana attached to the kanji) it usually uses its kunyomi reading. Numbers are an exception, though, and use the onyomi reading. You learned the onyomi reading when you learned this kanji, so you already know that the reading for this vocab is さん.",
         "readings": [
             {
                 "kana":"さん",
@@ -58,7 +58,7 @@
                 "is_primary": true
             }
         ],
-        "reading_mnemonic": "Since all of the \"number of things\" words all follow the same pattern (number plus つ), you really just have to remember the part before the つ (and then remember that the つ is in all of these). All of the readings are the kun'yomi reading, which means we'll have to use a mnemonic to remember them (you know the on'yomi reading of the kanji portion). What thing do you have three of? The three things that you have are actually three versions of yourself. \"Who is the real one?\" you ask yourself. \"It's me!\" \"Wait, no, it's me!\" Just remember that there are three of you, and they're all saying \"me me me me me\" to try and prove that they're the real you.",
+        "reading_mnemonic": "Since all of the \"number of things\" words all follow the same pattern (number plus つ), you really just have to remember the part before the つ (and then remember that the つ is in all of these). All of the readings are the kunyomi reading, which means we'll have to use a mnemonic to remember them (you know the onyomi reading of the kanji portion). What thing do you have three of? The three things that you have are actually three versions of yourself. \"Who is the real one?\" you ask yourself. \"It's me!\" \"Wait, no, it's me!\" Just remember that there are three of you, and they're all saying \"me me me me me\" to try and prove that they're the real you.",
         "readings": [
             {
                 "kana":"みっつ",
@@ -101,7 +101,7 @@
                 "is_primary": true
             }
         ],
-        "reading_mnemonic": "When a vocab is a single kanji with no okurigana (hiragana attached to the kanji), it usually uses the kun'yomi reading. Since you don't know the kun'yomi reading for this kanji yet, let's use a mnemonic to learn it. What does a person hate more than anything? They hate extreme heat (ひと). You can always put on more clothes to stay warm, but when the heat gets too high, you can only take off so much.",
+        "reading_mnemonic": "When a vocab is a single kanji with no okurigana (hiragana attached to the kanji), it usually uses the kunyomi reading. Since you don't know the kunyomi reading for this kanji yet, let's use a mnemonic to learn it. What does a person hate more than anything? They hate extreme heat (ひと). You can always put on more clothes to stay warm, but when the heat gets too high, you can only take off so much.",
         "readings": [
             {
                 "kana":"ひと",
@@ -148,7 +148,7 @@
                 "is_primary": false
             }
         ],
-        "reading_mnemonic": "This jukugo (combo kanji) word uses the on'yomi readings that you learned when you learned the kanji. That means you should know the reading as long as you know the kanji.",
+        "reading_mnemonic": "This jukugo (combo kanji) word uses the onyomi readings that you learned when you learned the kanji. That means you should know the reading as long as you know the kanji.",
         "readings": [
             {
                 "kana":"さんにん",

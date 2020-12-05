@@ -1,6 +1,6 @@
 # SRS Description
 ### The scheme of the spaced repetition system for shirabe.ru:
-**Note:** *item* is created from *prototype*. Item contains only metadata prototype_id or current_stage/etc. Actual translations/readings/example sencences/etc are stored in prototype of an item.
+**Note:** *item* is created from *prototype*. Item contains only metadata prototype_id or current_stage/etc. Actual translations/readings/example sentences/etc are stored in prototype of an item.
 
 ---
 * **Locked or not yet learned:** Stage 0 means that the item hasn't yet been learned (and created from prototype). 

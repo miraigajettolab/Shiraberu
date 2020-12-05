@@ -1,10 +1,10 @@
 # 1. Introduction
 
-This project is a web-based spaced repetion system to facilitate the process of kanji learning for russian speaking users.
+This project is a web-based spaced repetition system to facilitate the process of kanji learning for russian speaking users.
 
 ### 1.1 Project Specific Definitions and Acronyms
 
- **SRS** - [Spaced Repetition](https://en.wikipedia.org/wiki/Spaced_repetition) System - a set of rules to implement spaced repetion. Detailed SRS description could be found [here](https://github.com/miraigajettolab/Shiraberu/blob/master/Architecture/SRS%20description.md)
+ **SRS** - [Spaced Repetition](https://en.wikipedia.org/wiki/Spaced_repetition) System - a set of rules to implement spaced repetition. Detailed SRS description could be found [here](https://github.com/miraigajettolab/Shiraberu/blob/master/Architecture/SRS%20description.md)
  
  **Vocabulary** - Written words in Japanese
  
@@ -21,9 +21,9 @@ This project is a web-based spaced repetion system to facilitate the process of 
  **Item** - Object reviewed by user using the SRS system. Created for every existing Prototype for every user (If there are 1000 total prototypes and 1000 users then we will store a million objects of this data type). You can think about an item as a projection of a prototype for every user. Data structure defined [here](https://github.com/miraigajettolab/Shiraberu/blob/master/Architecture/Data%20types.md). Items are created for every prototype, when user is created and. If new prototypes are added after user creation, then new items are automatically created for every existing user as well.
  * Note: from now on (unless specified otherwise) Prototypes and Items could be used interchangeably to mean an object that user learns or reviews.
  
- **Level** - Items are subdivided into levels to create a more structured experience for user and gamify the learing process. User can learn an Item only after reaching the level of that prototype.
+ **Level** - Items are subdivided into levels to create a more structured experience for user and gamify the learning process. User can learn an Item only after reaching the level of that prototype.
  
- **Lesson** - One of two main activities that user can engage in. From user's standpoint this is the process of becoming familiar with the item, reading explanations about meanings/translations/reaings/etc. From a data standpoint learning means changing *srs_stage* from 0 to 1, setting *due_at* to current [unix time](https://en.wikipedia.org/wiki/Unix_time) + [stages[1].interval](https://github.com/miraigajettolab/Shiraberu/blob/master/Architecture/srs-intervals.json) and setting *learned_at* to current unix time.
+ **Lesson** - One of two main activities that user can engage in. From user's standpoint this is the process of becoming familiar with the item, reading explanations about meanings/translations/readings/etc. From a data standpoint learning means changing *srs_stage* from 0 to 1, setting *due_at* to current [unix time](https://en.wikipedia.org/wiki/Unix_time) + [stages[1].interval](https://github.com/miraigajettolab/Shiraberu/blob/master/Architecture/srs-intervals.json) and setting *learned_at* to current unix time.
  
  **Review** - The other one of two main activities that user can engage in. From user's standpoint this is the process of testing the recall of an item. From a data standpoint it works like this:
 * Item is reviewed when its **due_at <= Current [Unix Time](https://en.wikipedia.org/wiki/Unix_time)** 
@@ -63,12 +63,12 @@ The scope of work is:
 During lessons user needs to be able to clearly see all relevant data, we will try to pay attention to this need during frontend development.
 
 During reviews user has several needs:
-* During the review session user will have to input information in both hiragana and cyrillics. UX will be much better if we could eliminate the need to switch between input methods. This need will be solved using a subproject called [KiKana](https://github.com/miraigajettolab/kikana) that will enable user to input hiragana using cyrillics.
+* During the review session user will have to input information in both hiragana and cyrillic. UX will be much better if we could eliminate the need to switch between input methods. This need will be solved using a subproject called [KiKana](https://github.com/miraigajettolab/kikana) that will enable user to input hiragana using cyrillic.
 * If user intends to input one of accepted values but makes a typo during review's meaning check. We want to automatically understand that it's a typo, not a mistake and mark review as correct. We have to find distance between the input and each accepted meaning and decide if we should accept it as a correct answer. We will use a modified [Damerau Levenshtein distance](https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance) algorithm to solve it.
 * User needs to be able to add his own synonyms and notes to an item during review.
 
 User needs to be able to have access to each item for reference.
-* We will create a page for each item. User will have two ways to access it - through look up (searchbar) and browsing by levels.
+* We will create a page for each item. User will have two ways to access it - through look up (search bar) and browsing by levels.
 * Each item page should have statistics of past reviews, timestamp of next review, user added content and other relevant data.
 
 Item pages should enable user to add his own synonyms and notes to an item.
