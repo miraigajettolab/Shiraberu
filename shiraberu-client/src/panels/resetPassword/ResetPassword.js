@@ -10,8 +10,8 @@ import { ThemeProvider } from '@material-ui/core/styles';
 
 
 class ResetPassword extends React.Component {
-    constructor() {
-    super()
+    constructor(props) {
+    super(props)
         this.state = {
             showAlert: false,
             alertMsg: "",

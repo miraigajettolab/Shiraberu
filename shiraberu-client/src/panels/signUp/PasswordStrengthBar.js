@@ -1,7 +1,6 @@
 import React from 'react';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
 
 //takes props.value from 0 to 100
 

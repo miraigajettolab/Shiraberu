@@ -9,8 +9,8 @@ import Alert from '@material-ui/lab/Alert';
 import { ThemeProvider } from '@material-ui/core/styles';
 
 class SignUp extends React.Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
             this.state = {
                 showAlert: false,
                 alertMsg: "",
@@ -38,7 +38,7 @@ class SignUp extends React.Component {
                 return score;
         
             // award every unique letter until 5 repetitions
-            var letters = new Object();
+            var letters = {};
             for (var i=0; i<pass.length; i++) {
                 letters[pass[i]] = (letters[pass[i]] || 0) + 1;
                 score += 5.0 / letters[pass[i]];
@@ -54,7 +54,7 @@ class SignUp extends React.Component {
         
             var variationCount = 0;
             for (var check in variations) {
-                variationCount += (variations[check] == true) ? 1 : 0;
+                variationCount += (variations[check] === true) ? 1 : 0;
             }
             score += (variationCount - 1) * 10;
         
@@ -115,7 +115,7 @@ class SignUp extends React.Component {
     render() {
         let passwordScore = this.scorePassword(this.state.password);
         return (
-            <div className="SingIn" style={{maxWidth: "60%", marginLeft: "20%", marginTop: "10%"}}>
+            <div className="SingUp" style={{maxWidth: "60%", marginLeft: "20%", marginTop: "10%"}}>
                 <ThemeProvider theme={this.props.theme}>
                 <Alert 
                     style={{marginBottom: "20px", visibility: this.state.showAlert ? "visible": "hidden"}} 

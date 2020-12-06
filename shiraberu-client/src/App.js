@@ -3,6 +3,8 @@ import React from "react"
 import SignIn from "./panels/signIn/SignIn"
 import SignUp from "./panels/signUp/SignUp"
 import ResetPassword from "./panels/resetPassword/ResetPassword"
+import Home from "./panels/home/Home"
+
 import * as firebase from "firebase"
 import { createMuiTheme } from '@material-ui/core/styles';
 
@@ -50,7 +52,7 @@ class App extends React.Component {
   });
   switch (this.state.activePanel) {
       case "Home":
-        return <div>もぐもぐ～おかゆ～！</div>
+        return <Home activePanelHandler = {this.activePanelHandler} theme={theme}/>
       case "SignIn":
         return <SignIn activePanelHandler = {this.activePanelHandler} theme={theme}/>
       case "SignUp":

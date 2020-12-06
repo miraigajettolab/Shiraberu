@@ -2,7 +2,6 @@ import React from "react"
 import * as firebase from "firebase"
 
 import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Alert from '@material-ui/lab/Alert';
@@ -11,8 +10,8 @@ import { ThemeProvider } from '@material-ui/core/styles';
 
 
 class SignIn extends React.Component {
-    constructor() {
-    super()
+    constructor(props) {
+    super(props)
         this.state = {
             showAlert: false,
             alertMsg: "",
