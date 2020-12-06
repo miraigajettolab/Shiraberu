@@ -4,6 +4,7 @@ import SignIn from "./panels/signIn/SignIn"
 import SignUp from "./panels/signUp/SignUp"
 import ResetPassword from "./panels/resetPassword/ResetPassword"
 import Home from "./panels/home/Home"
+import Loading from "./util/Loading"
 
 import * as firebase from "firebase"
 import { createMuiTheme } from '@material-ui/core/styles';
@@ -51,6 +52,8 @@ class App extends React.Component {
     },
   });
   switch (this.state.activePanel) {
+      case "Loading":
+        return <Loading theme={theme}/>
       case "Home":
         return <Home activePanelHandler = {this.activePanelHandler} theme={theme}/>
       case "SignIn":
