@@ -2,7 +2,6 @@ import React from "react"
 import * as firebase from "firebase"
 
 import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Alert from '@material-ui/lab/Alert';
@@ -10,7 +9,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 
 
 
-class SignIn extends React.Component {
+class ResetPassword extends React.Component {
     constructor() {
     super()
         this.state = {
@@ -21,7 +20,7 @@ class SignIn extends React.Component {
             password:""
         }
         this.changeHandler = this.changeHandler.bind(this)
-        this.signInHandler = this.signInHandler.bind(this)
+        this.resetHandler = this.resetHandler.bind(this)
     }
 
     changeHandler(event) {
@@ -30,26 +29,20 @@ class SignIn extends React.Component {
         this.setState({[name]:value})
     }
 
-    signInHandler() {
+    resetHandler() {
         const auth = firebase.auth();
-        const promise = auth.signInWithEmailAndPassword(this.state.email, this.state.password)
+        const promise = auth.sendPasswordResetEmail(this.state.email)
         promise
-        .then(event => this.props.activePanelHandler("Home", event))
+        .then(event => this.props.activePanelHandler("SignIn", event))
         .catch(e => {
             let rusMessage
             switch (e.code) {
                 case "auth/invalid-email":
                     rusMessage = "Некорректный email"
                     break;
-                case "auth/wrong-password":
-                    rusMessage = "Неправильный пароль"
-                    break;
                 case "auth/user-not-found":
                     rusMessage = "Такого пользователя нет"
                     break;
-                case "user-disabled":
-                    rusMessage = "Пользователь заблокирован"
-                    break; 
                 default:
                     rusMessage = "Что-то пошло не так"
                     break;
@@ -64,7 +57,7 @@ class SignIn extends React.Component {
 
     render() {
         return (
-            <div className="SingIn" style={{maxWidth: "60%", marginLeft: "20%", marginTop: "10%"}}>
+            <div className="ResetPassword" style={{maxWidth: "60%", marginLeft: "20%", marginTop: "10%"}}>
                 <ThemeProvider theme={this.props.theme}>
                 <Alert 
                     style={{marginBottom: "20px", visibility: this.state.showAlert ? "visible": "hidden"}} 
@@ -82,38 +75,13 @@ class SignIn extends React.Component {
                         value = {this.state.email}
                         onChange = {this.changeHandler}
                     />
-                    <TextField 
-                        style={{marginBottom: "10px"}}
-                        label="Пароль"
-                        type="password"
-                        variant="outlined"
-                        name = "password"
-                        value = {this.state.password}
-                        onChange = {this.changeHandler}
-                    />
                     <Button 
                         style = {{height: "48px", width: "100%", marginBottom: "10px"}}
                         variant="contained"
                         color="primary"
-                        onClick={this.signInHandler}>
-                            Войти
-                    </Button>
-                    <div style = {{height: "48px", display: "flex", justifyContent: "space-between"}}>
-                        <Button
-                            style = {{width: "50%", marginRight: "5px"}} 
-                            variant="contained" 
-                            color="secondary" 
-                            onClick={event => this.props.activePanelHandler("ResetPassword", event)}>
-                                Забыли пароль?
-                        </Button>
-                        <Button
-                            style = {{width: "50%", marginLeft: "5px"}} 
-                            variant="contained" 
-                            color="secondary" 
-                            onClick={event => this.props.activePanelHandler("SignUp", event)}>
-                                Зарегистрироваться
-                        </Button>
-                    </div>            
+                        onClick={this.resetHandler}>
+                        Сменить Пароль
+                    </Button>           
                 </FormControl>
                 </ThemeProvider>
             </div>
@@ -121,4 +89,4 @@ class SignIn extends React.Component {
     }
 } 
 
-export default SignIn
+export default ResetPassword
