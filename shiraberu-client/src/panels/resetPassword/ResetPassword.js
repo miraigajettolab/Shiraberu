@@ -57,7 +57,7 @@ class ResetPassword extends React.Component {
 
     render() {
         return (
-            <div className="ResetPassword" style={{maxWidth: "60%", marginLeft: "20%", marginTop: "10%"}}>
+            <div className="Сontainer">
                 <ThemeProvider theme={this.props.theme}>
                 <Alert 
                     style={{marginBottom: "20px", visibility: this.state.showAlert ? "visible": "hidden"}} 

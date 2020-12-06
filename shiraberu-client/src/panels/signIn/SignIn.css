@@ -1,0 +1,28 @@
+.ExtraContainer{
+    height: 48px; 
+    display: flex; 
+    justify-content: space-between;
+}
+
+.ExtraContainerChild
+{
+    width: calc(50% - 5px);
+}
+
+@media all and (max-width:440px)
+{
+    .ExtraContainer{
+        display: block; 
+    }
+
+    .ExtraContainerChild
+    { 
+        height: 48px; 
+        width: 100%;
+    }
+}
+
+/**
+ * style = {{height: "48px", display: "flex", justifyContent: "space-between"}}
+ * style = {{width: "50%", marginRight: "5px"}} 
+ */

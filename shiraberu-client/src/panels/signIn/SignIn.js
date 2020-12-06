@@ -1,5 +1,6 @@
 import React from "react"
 import * as firebase from "firebase"
+import './SignIn.css'
 
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
@@ -63,7 +64,7 @@ class SignIn extends React.Component {
 
     render() {
         return (
-            <div className="SingIn" style={{maxWidth: "60%", marginLeft: "20%", marginTop: "10%"}}>
+            <div className="Сontainer">
                 <ThemeProvider theme={this.props.theme}>
                 <Alert 
                     style={{marginBottom: "20px", visibility: this.state.showAlert ? "visible": "hidden"}} 
@@ -97,16 +98,18 @@ class SignIn extends React.Component {
                         onClick={this.signInHandler}>
                             Войти
                     </Button>
-                    <div style = {{height: "48px", display: "flex", justifyContent: "space-between"}}>
+                    <div className="ExtraContainer">
                         <Button
-                            style = {{width: "50%", marginRight: "5px"}} 
+                            className="ExtraContainerChild"
                             variant="contained" 
                             color="secondary" 
                             onClick={event => this.props.activePanelHandler("ResetPassword", event)}>
                                 Забыли пароль?
                         </Button>
+                        <div className="ExtraContainerSpacer" style = {{marginBottom:"10px"}}>
+                        </div>
                         <Button
-                            style = {{width: "50%", marginLeft: "5px"}} 
+                            className="ExtraContainerChild"
                             variant="contained" 
                             color="secondary" 
                             onClick={event => this.props.activePanelHandler("SignUp", event)}>

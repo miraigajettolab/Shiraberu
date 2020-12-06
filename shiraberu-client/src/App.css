@@ -6,4 +6,17 @@ body {
   margin: 0;
 }
 
+.Сontainer {
+  margin: 10px;
+}
+
+@media screen and (min-width: 640px) {
+  .Сontainer {
+    margin-left:20%;
+    margin-right:20%;
+    margin-top: 10%;
+  }
+}
+
+
 @import url("https://fonts.googleapis.com/css2?family=Kosugi&display=swap");
