@@ -84,8 +84,11 @@ class SignUp extends React.Component {
             const promise = auth.createUserWithEmailAndPassword(this.state.email, this.state.password)
             promise
             .then(obj => {
-                const docRef = firestore.doc("Users/"+ this.state.email)
-                docRef.set({email: this.state.email})
+                const docRef = firestore.doc("Users/"+ obj.user.uid)
+                docRef.set({
+                    email: obj.user.email,
+                    level: 1,
+                })
             })
             .then(user => this.props.activePanelHandler("Home", user))
             .catch(e => {
