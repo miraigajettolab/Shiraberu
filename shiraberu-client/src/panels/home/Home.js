@@ -3,6 +3,9 @@ import * as firebase from "firebase"
 import { ThemeProvider } from '@material-ui/core/styles';
 import AppBar from './AppBar'
 
+import Button from '@material-ui/core/Button';
+
+
 class Home extends React.Component {
     constructor(props) {
     super(props)
@@ -19,6 +22,7 @@ class Home extends React.Component {
         this.getIndices = this.getIndices.bind(this)
         this.countReviews = this.countReviews.bind(this)
         this.countLessons = this.countLessons.bind(this)
+        this.handleLesson = this.handleLesson.bind(this)
     }
 
     signOutHandler() {
@@ -95,6 +99,10 @@ class Home extends React.Component {
         })
     }
 
+    handleLesson(){
+        this.props.handleLesson(this.state.lessonQueue)
+    }
+
     componentDidMount(){
         this.getIndices();
     }
@@ -105,9 +113,16 @@ class Home extends React.Component {
                 <ThemeProvider theme={this.props.theme}>
                     <AppBar logout = {this.signOutHandler} go={this.props.activePanelHandler}/>
                 </ThemeProvider>
-                <div className="Home" style={{maxWidth: "80%", marginLeft: "10%", marginTop: "10%"}}>
+                <div className="Home" style={{maxWidth: "80%", marginLeft: "10%", marginTop: "20px"}}>
                     <ThemeProvider theme={this.props.theme}>
-                        У тебя {this.state.lessonQueue ? this.state.lessonQueue.length: null} уроков
+                        <Button
+                            style = {{height: "120px"}}
+                            className="ExtraContainerChild"
+                            variant="contained" 
+                            color="secondary" 
+                            onClick={this.handleLesson}>
+                                Уроки: {this.state.lessonQueue ? this.state.lessonQueue.length: ""}
+                        </Button>
                     </ThemeProvider>
                 </div>
             </div>
