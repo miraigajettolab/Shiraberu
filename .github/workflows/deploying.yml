@@ -22,7 +22,7 @@ jobs:
         run: npm install
       - name: Build
         working-directory: ./shiraberu-client
-        run: npm run build
+        run: CI= npm run build
       - name: Download Firebase
         run: curl -sL https://firebase.tools | bash
   deploy:
