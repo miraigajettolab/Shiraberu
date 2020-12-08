@@ -17,4 +17,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+    - run: cd shiraberu-client
     - run: npm install
+    - run: curl -sL https://firebase.tools | bash
+    - run: npm run build && firebase deploy --token ${{secrets.FIREBASE_TOKEN}}
