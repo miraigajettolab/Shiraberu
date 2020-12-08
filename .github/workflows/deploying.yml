@@ -7,8 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Install Dependencies
-        run: cd shiraberu-client && npm install
+        working-direcoty: ./shiraberu-client
+        run: npm install
       - name: Build
+        working-direcoty: ./shiraberu-client
         run: npm run build
       - name: Download Firebase
         run: curl -sL https://firebase.tools | bash
@@ -18,4 +20,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to Firebase
+        working-direcoty: ./shiraberu-client
         run: firebase deploy --token ${{ secrets.FIREBASE_TOKEN }}
