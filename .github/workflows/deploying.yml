@@ -1,24 +1,23 @@
-name: Node.js CI
-
+name: Build and Deploy
 on: [push]
 
 jobs:
   build:
-
+    name: Build
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [10.x]
-
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: npm install
-
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - name: Install Dependencies
+        run: npm install
+      - name: Build
+        run: cd shiraberu-client
+        run: npm run build-prod
+      - name: Archive Production Artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: dist
+          path: dist
   deploy:
     name: Deploy
     needs: build
@@ -31,7 +30,6 @@ jobs:
         with:
           name: dist
           path: dist
-      - run: cd shiraberu-client
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
