@@ -9,9 +9,8 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@master
       - name: Install Dependencies
-        run: npm install
+        run: cd shiraberu-client && npm install
       - name: Build
-        run: cd shiraberu-client
         run: npm run build-prod
       - name: Archive Production Artifact
         uses: actions/upload-artifact@master
