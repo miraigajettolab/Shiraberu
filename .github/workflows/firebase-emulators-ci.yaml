@@ -4,15 +4,15 @@ jobs:
     name: Run tests using Firebase Emulator Suite
     runs-on: ubuntu-latest
     steps:
-      uses: actions/checkout@v2
-      uses: actions/setup-node@v1
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
       with:
         node-version: "12"
-      name: Installing Firebase Emulator Suite
+    - name: Installing Firebase Emulator Suite
       run: npm install -g firebase-tools
-      name: Install dependedncies
+    - name: Install dependedncies
       run: npm install
       working-directory: shiraberu-client/functions
-      name: Run all tests
+    - name: Run all tests
       working-directory: shiraberu-client/functions
       run: firebase emulators:exec --project shirabe-ru 'npm test'
