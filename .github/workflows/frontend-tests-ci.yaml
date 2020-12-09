@@ -1,0 +1,12 @@
+on: [push, pull_request]
+jobs:
+  emulator_test:
+    name: Run frontend tests using jest
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install dependedncies
+      run: npm install
+      working-directory: shiraberu-client
+    - name: Run all tests
+      run: npm test
+      working-directory: shiraberu-client
