@@ -1,0 +1,35 @@
+name: Build and Deploy
+on: [push]
+
+jobs:
+  build:
+    name: Build
+    
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [10.x]
+    
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install Dependencies
+        working-directory: ./shiraberu-client
+        run: npm install
+      - name: Build
+        working-directory: ./shiraberu-client
+        run: CI= npm run build
+      - name: Download Firebase
+        run: curl -sL https://firebase.tools | bash
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to Firebase
+        working-directory: ./shiraberu-client
+        run: firebase deploy --token ${{ secrets.FIREBASE_TOKEN }}
