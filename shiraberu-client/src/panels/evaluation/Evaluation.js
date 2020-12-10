@@ -12,7 +12,6 @@ import Typography from '@material-ui/core/Typography';
     *shuffleDepth   - how "deep" the shuffle is
     *prototypes - array of objects of Prototype data type
     *onPass     - promise
-    *onFail     - promise
 */
 
 class Evaluation extends React.Component {
@@ -20,7 +19,6 @@ class Evaluation extends React.Component {
     super(props)
         this.state = {
             prototypes: this.props.prototypes.map(prot => {
-                //TODO: Finish this stuff
                 return ({
                     "id": prot.id,
                     "type": prot.type,
@@ -28,14 +26,17 @@ class Evaluation extends React.Component {
                     "radical_picture": prot.radical_picture ? prot.radical_picture : null,
                     "meanings": prot.meanings,
                     "readings": prot.readings ? prot.readings : null,
-                    "meaningPassed" : null, //TODO:
-                    "readingPassed" : null,
+                    "meaningPassed" : false,
+                    "readingPassed" : prot.type === "R" ? true : false, //radicals don't have readings
+                    "didFail": false,
                 })
             }),
             shuffleDepth: this.props.shuffleDepth ? this.props.shuffleDepth : 10, //setting default depth if prop wasn't passed
         }
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleOnPass = this.handleOnPass.bind(this)
+        this.handleMeaningPass = this.handleMeaningPass.bind(this)
+        this.handleReadingPass = this.handleReadingPass.bind(this)
         this.handleOnFail = this.handleOnFail.bind(this)
         this.shuffleWhole = this.shuffleWhole.bind(this)
         this.shuffleCurrent = this.shuffleCurrent.bind(this)
@@ -89,9 +90,9 @@ class Evaluation extends React.Component {
         })*/
     }
 
+    //Do not call this directly, only handleMeaningPass and handleReadingPass should do so
     handleOnPass(){
-        this.props.onPass().then(confirmation => {
-            console.log(confirmation)
+        this.props.onPass(this.state.prototypes[0]).then(confirmation => {
             //After the promise is fulfilled we want to remove the prototype from queue
             //We don't want to mutate state directly 
             let prevPrototypes = this.state.prototypes; 
@@ -106,11 +107,55 @@ class Evaluation extends React.Component {
         })
     }
 
-    handleOnFail(){
+    handleMeaningPass(){
+        //If reading already passed, just delegate to handleOnPass()
+        if(this.state.prototypes[0].readingPassed){
+            this.handleOnPass();
+        }
+        else {
+            //We don't want to mutate state directly 
+            let prevPrototypes = this.state.prototypes;
+            prevPrototypes[0].meaningPassed = true;
+            this.setState({
+                prototypes: prevPrototypes
+            })
+            //Shuffle it out
+            this.shuffleCurrent();
+        }
+    }
 
+    handleReadingPass(){
+        //If meaning already passed, just delegate to handleOnPass()
+        if(this.state.prototypes[0].meaningPassed){
+            this.handleOnPass();
+        }
+        else {
+            //We don't want to mutate state directly 
+            let prevPrototypes = this.state.prototypes;
+            prevPrototypes[0].readingPassed = true;
+            this.setState({
+                prototypes: prevPrototypes
+            })
+            //Shuffle it out
+            this.shuffleCurrent();
+        }
+    }
+
+    handleOnFail(){
+        //We don't want to mutate state directly 
+        let prevPrototypes = this.state.prototypes;
+        //Fail the current one
+        prevPrototypes[0].didFail = true;
+        this.setState({
+            prototypes: prevPrototypes
+        })
+        //Shuffle it out
+        this.shuffleCurrent();
     }
 
     componentDidMount(){
+        //Shuffle prototypes at the start of evaluation session
+        this.shuffleWhole();
     }
 
     render() {
@@ -121,7 +166,7 @@ class Evaluation extends React.Component {
                         <Button 
                             style = {{flex: 1}} 
                             size="small" 
-                            onClick = {this.shuffleCurrent}
+                            onClick = {this.handleMeaningPass}
                         >
                             Проверить
                         </Button>
