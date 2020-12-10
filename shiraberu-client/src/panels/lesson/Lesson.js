@@ -19,6 +19,7 @@ class Lesson extends React.Component {
         this.getPrototypes = this.getPrototypes.bind(this)
         this.handleRightClick = this.handleRightClick.bind(this)
         this.handleLeftClick = this.handleLeftClick.bind(this)
+        this.handleLessonQuiz = this.handleLessonQuiz.bind(this)
     }
 
     getPrototypes(){
@@ -31,7 +32,7 @@ class Lesson extends React.Component {
             this.setState({
                 prototypes: protsSnapshot.docs.map(doc => doc.data())
             })
-            console.log(this.state.prototypes)
+            console.log(this.state.prototypes) //TEST
             return 0
         })
         .catch(function(error) {
@@ -42,14 +43,18 @@ class Lesson extends React.Component {
 
     handleRightClick(){
         this.setState({
-            selected: ++this.state.selected
+            selected: this.state.selected + 1
         })
     }
 
     handleLeftClick(){
         this.setState({
-            selected: --this.state.selected
+            selected: this.state.selected - 1
         })
+    }
+
+    handleLessonQuiz(){
+
     }
 
     componentDidMount(){
@@ -65,7 +70,7 @@ class Lesson extends React.Component {
                         <Typography variant="h1" component="h1" style = {{textAlign: "center", color: "white"}}>
                             {this.state.prototypes[this.state.selected].characters !== null ? 
                                 this.state.prototypes[this.state.selected].characters :
-                                <img style={{ maxHeight: "90px"}} src={this.state.prototypes[this.state.selected].radical_picture} />
+                                <img alt = "radical_image" style={{ maxHeight: "90px"}} src={this.state.prototypes[this.state.selected].radical_picture} />
                             }
                         </Typography>
                         <br />
@@ -75,7 +80,7 @@ class Lesson extends React.Component {
                             {this.state.prototypes[this.state.selected].meanings.filter(m => m.is_primary)[0].text}
                         </Typography>
                     </CardContent>
-                    <hr color={"EEEEEE"}/>
+                    <hr color={"#EEEEEE"}/>
                     <CardContent>
                         <Typography variant="body2" component="p">
                         {this.state.prototypes[this.state.selected].meaning_mnemonic}
@@ -99,7 +104,17 @@ class Lesson extends React.Component {
                             {">"}
                         </Button>
                     </CardActions>
-                    </Card>: <div></div>}
+                    <CardActions>
+                        <Button 
+                            style = {{flex: 1}} 
+                            size="small" 
+                            disabled = {this.state.selected !== this.state.lessonQueue.length-1} 
+                            onClick = {this.handleLessonQuiz}
+                        >
+                            Проверить
+                        </Button>
+                    </CardActions>
+                    </Card>: <div></div>}W
                     </ThemeProvider>
                 </div>
         )
