@@ -1,19 +1,16 @@
 import React from "react"
 import * as firebase from "firebase"
 import { ThemeProvider } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-
+import Evaluation from '../evaluation/Evaluation'
+import LessonCard from './LessonCard'
 
 class Lesson extends React.Component {
     constructor(props) {
     super(props)
         this.state = {
             lessonQueue: this.props.lessonQueue.slice(0, 10), // 10 at most at once
-            selected: 0
+            prototypes: null,
+            selected: 0,
 
         }
         this.getPrototypes = this.getPrototypes.bind(this)
@@ -22,6 +19,20 @@ class Lesson extends React.Component {
         this.handleLessonQuiz = this.handleLessonQuiz.bind(this)
     }
 
+    comparePrototypes(prototype1, prototype2, key) {
+        const prot1 = prototype1[key]
+        const prot2 = prototype2[key]
+        if (prot1 < prot2) {
+          return -1
+        }
+        else if (prot1 > prot2) {
+          return 1
+        }
+        else {
+            return 0
+        }
+      }
+
     getPrototypes(){
         var t0 = performance.now()
         const db = firebase.firestore();
@@ -29,8 +40,13 @@ class Lesson extends React.Component {
         .then(protsSnapshot => {
             var t1 = performance.now()
             console.log("Call to getPrototypes() took " + (t1 - t0) + " milliseconds.")
+            let lessonsData = protsSnapshot.docs.map(doc => doc.data())
+            //sorting
+            lessonsData.sort((prot1, prot2) => {
+                return this.comparePrototypes(prot1, prot2, 'id')
+            })
             this.setState({
-                prototypes: protsSnapshot.docs.map(doc => doc.data())
+                prototypes: lessonsData
             })
             console.log(this.state.prototypes) //TEST
             return 0
@@ -61,61 +77,40 @@ class Lesson extends React.Component {
         this.getPrototypes();
     }
 
+    onPass(obj) {
+        return new Promise(function(resolve, reject) {
+          /*stuff using obj*/
+            console.log("in lessons!")
+            console.log(obj)
+            resolve("onPass worked!");
+           // reject(Error("It broke"));
+        });
+    }
+
     render() {
+        let card = <div></div>
+        if(this.state.prototypes){
+            const selected = this.state.selected;
+            const current = this.state.prototypes[this.state.selected];
+            const lessonQueueLength = this.state.lessonQueue.length;
+            card = <LessonCard 
+                        selected={selected} 
+                        current={current}
+                        lessonQueueLength={lessonQueueLength}
+                        colors={this.props.colors}
+                        handleLeftClick={this.handleLeftClick}
+                        handleRightClick={this.handleRightClick}
+                        handleLessonQuiz={this.handleLessonQuiz}
+                    />
+        
+        }
+        
         return (
                 <div className="Lesson" style={{maxWidth: "80%", marginLeft: "10%", marginTop: "10%"}}>
                     <ThemeProvider theme={this.props.theme}>
-                   {this.state.prototypes ?<Card>
-                    <CardContent style={{backgroundColor: "#10F6A9"}}>
-                        <Typography variant="h1" component="h1" style = {{textAlign: "center", color: "white"}}>
-                            {this.state.prototypes[this.state.selected].characters !== null ? 
-                                this.state.prototypes[this.state.selected].characters :
-                                <img alt = "radical_image" style={{ maxHeight: "90px"}} src={this.state.prototypes[this.state.selected].radical_picture} />
-                            }
-                        </Typography>
-                        <br />
-                    </CardContent>
-                    <CardContent>
-                        <Typography variant="h5" component="h2" style = {{textAlign: "center"}}>
-                            {this.state.prototypes[this.state.selected].meanings.filter(m => m.is_primary)[0].text}
-                        </Typography>
-                    </CardContent>
-                    <hr color={"#EEEEEE"}/>
-                    <CardContent>
-                        <Typography variant="body2" component="p">
-                        {this.state.prototypes[this.state.selected].meaning_mnemonic}
-                        </Typography>
-                    </CardContent>
-                    <CardActions>
-                        <Button 
-                            style = {{flex: 1}} 
-                            size="small" 
-                            disabled = {this.state.selected === 0} 
-                            onClick = {this.handleLeftClick}
-                        >
-                            {"<"}
-                        </Button>
-                        <Button 
-                            style = {{flex: 1}} 
-                            size="small" 
-                            disabled = {this.state.selected === this.state.lessonQueue.length-1} 
-                            onClick = {this.handleRightClick}
-                        >
-                            {">"}
-                        </Button>
-                    </CardActions>
-                    <CardActions>
-                        <Button 
-                            style = {{flex: 1}} 
-                            size="small" 
-                            disabled = {this.state.selected !== this.state.lessonQueue.length-1} 
-                            onClick = {this.handleLessonQuiz}
-                        >
-                            Проверить
-                        </Button>
-                    </CardActions>
-                    </Card>: <div></div>}W
+                        {card}
                     </ThemeProvider>
+                    {this.state.prototypes ? <Evaluation theme = {this.props.theme} prototypes = {this.state.prototypes} onPass = {this.onPass}/> : <div></div>}
                 </div>
         )
     }
