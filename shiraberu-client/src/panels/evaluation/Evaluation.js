@@ -1,6 +1,6 @@
 import React from "react"
-import { ThemeProvider } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+//import transcribe from '../../kikana-src/src/cyrillicToHiragana'
+import EvaluationCard from './EvaluationCard'
 
 /*REQUIRED PROPS:
     *theme
@@ -80,7 +80,8 @@ class Evaluation extends React.Component {
     }
 
 
-    handleSubmit(){
+    handleSubmit(answer){
+        console.log(answer)
         //TODO: Write me
         /*this.setState({
             selected: this.state.selected + 1
@@ -158,17 +159,13 @@ class Evaluation extends React.Component {
     render() {
         console.log(this.state)
         return (
-                <div className="Lesson" style={{maxWidth: "80%", marginLeft: "10%", marginTop: "10%"}}>
-                    <ThemeProvider theme={this.props.theme}>
-                        <Button 
-                            style = {{flex: 1}} 
-                            size="small" 
-                            onClick = {this.handleMeaningPass}
-                        >
-                            Проверить
-                        </Button>
-                    </ThemeProvider>
-                </div>
+            <div className="Evaluation">
+                <EvaluationCard 
+                    current={this.state.prototypes[0]} 
+                    colors={this.props.colors}
+                    handleSubmit={this.handleSubmit}
+                />
+            </div>
         )
     }
 } 
