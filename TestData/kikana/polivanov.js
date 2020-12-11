@@ -1,4 +1,5 @@
-{"polivanov": [
+export default {
+    "polivanov": [
     {"hiragana":"あ","katakana":"ア","cyrillic":"а"},
     {"hiragana":"い","katakana":"イ","cyrillic":"и"},
     {"hiragana":"う","katakana":"ウ","cyrillic":"у"},
@@ -108,4 +109,4 @@
     {"hiragana":"ぴゃ","katakana":"ピャ","cyrillic":"пя"},
     {"hiragana":"ぴゅ","katakana":"ピュ","cyrillic":"пю"},
     {"hiragana":"ぴょ","katakana":"ピョ","cyrillic":"пё"}
-]}
+]};
