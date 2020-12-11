@@ -32,7 +32,7 @@ class App extends React.Component {
   }
 
   handleLesson(queue){
-    queue = [25,26,27,28,29,30,31]
+    queue = [28,29,30,31]
     this.setState({lessonQueue: queue})
     this.activePanelHandler("Lesson")
   }

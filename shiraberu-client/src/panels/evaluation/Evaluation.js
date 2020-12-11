@@ -78,66 +78,103 @@ class Evaluation extends React.Component {
         })
     }
 
-
-    handleSubmit(answer, isReading){
+    //TODO: Add new srs stage to the msg of resolve
+    handleSubmit(answer, isReading, resolved){
         const current = this.state.prototypes[0]
-        return new Promise(function(resolve, reject) {
-            if(isReading){
-                const readings = current.readings.map(rd => rd.kana)
-                //If the type is Kanji than we have to consider if reading is accepted
-                if(current.type === "K"){
-                    let acceptedReadings = current.readings.filter(rd => rd.is_accepted === true)
-                    acceptedReadings = acceptedReadings.map(rd => rd.kana)
-                    if(acceptedReadings.includes(answer)){
-                        resolve({
-                            "msg":"Accepted",
-                            "status":"success",
-                        }) //TODO:
+    
+        if(isReading){
+            const readings = current.readings.map(rd => rd.kana)
+            //If the type is Kanji than we have to consider if reading is accepted
+            if(current.type === "K"){
+                let acceptedReadings = current.readings.filter(rd => rd.is_accepted === true)
+                acceptedReadings = acceptedReadings.map(rd => rd.kana)
+                if(acceptedReadings.includes(answer)){
+                    if(resolved){
+                        this.handleReadingPass()
+                        return new Promise(function(resolve, reject) {reject()})
                     }
-                    else if(readings.includes(answer)){
+                    return new Promise(function(resolve, reject) {
                         resolve({
-                            "msg":"We're looking for a different reading",
+                            "msg":"Верно",
+                            "status":"success",
+                        })
+                    })
+                }
+                else if(readings.includes(answer)){
+                    return new Promise(function(resolve, reject) {
+                        resolve({
+                            "msg":"Укажите другое чтение",
                             "status":"warning",
-                        }) //TODO:
-                    }
-                    else {
-                        resolve({
-                            "msg":"Wrong...",
-                            "status":"error",
-                        }) //TODO:
-                    }
-                }
-                else { //The type is Vocab
-                    if(readings.includes(answer)){
-                        resolve({
-                            "msg":"Accepted",
-                            "status":"success",
-                        }) //TODO:
-                    }
-                    else {
-                        resolve({
-                            "msg":"Wrong...",
-                            "status":"error",
-                        }) //TODO:
-                    }
-                }
-            } 
-            else { //TODO: add Damerau - Levenshtein
-                const meanings = current.meanings.map(mn => mn.text.toLowerCase())
-                if(meanings.includes(answer.toLowerCase())){
-                    resolve({
-                        "msg":"Accepted",
-                        "status":"success",
-                    }) //TODO:
+                        })
+                    })
                 }
                 else {
-                    resolve({
-                        "msg":"Wrong...",
-                        "status":"error",
-                    }) //TODO:
+                    if(resolved){
+                        this.handleOnFail()
+                        return new Promise(function(resolve, reject) {reject()})
+                    }
+                    return new Promise(function(resolve, reject) {
+                        resolve({
+                            "msg":"Неверно 😢",
+                            "status":"error",
+                        })
+                    })
                 }
             }
-        });
+            else { //The type is Vocab
+                if(readings.includes(answer)){
+                    if(resolved){
+                        this.handleReadingPass()
+                        return new Promise(function(resolve, reject) {reject()})
+                    }
+                    return new Promise(function(resolve, reject) {
+                        resolve({
+                            "msg":"Верно",
+                            "status":"success",
+                        })
+                    })
+                }
+                else {
+                    if(resolved){
+                        this.handleOnFail()
+                        return new Promise(function(resolve, reject) {reject()})
+                    }
+                    return new Promise(function(resolve, reject) {
+                        resolve({
+                            "msg":"Неверно 😢",
+                            "status":"error",
+                        })
+                    })
+                }
+            }
+        } 
+        else { //TODO: add Damerau - Levenshtein
+            const meanings = current.meanings.map(mn => mn.text.toLowerCase())
+            if(meanings.includes(answer.toLowerCase())){
+                if(resolved){
+                    this.handleMeaningPass()
+                    return new Promise(function(resolve, reject) {reject()})
+                }
+                return new Promise(function(resolve, reject) {
+                    resolve({
+                        "msg":"Верно",
+                        "status":"success",
+                    })
+                })
+            }
+            else {
+                if(resolved){
+                    this.handleOnFail()
+                    return new Promise(function(resolve, reject) {reject()})
+                }
+                return new Promise(function(resolve, reject) {
+                    resolve({
+                        "msg":"Неверно 😢",
+                        "status":"error",
+                    })
+                })
+            }
+        }
     }
 
     //Do not call this directly, only handleMeaningPass and handleReadingPass should do so
@@ -209,14 +246,17 @@ class Evaluation extends React.Component {
     }
 
     render() {
-        console.log(this.state)
+        let evaluationCard = "Всё!"
+        if(this.state.prototypes.length > 0) {
+            evaluationCard = <EvaluationCard 
+                current={this.state.prototypes[0]} 
+                colors={this.props.colors}
+                handleSubmit={this.handleSubmit}
+            />
+        }
         return (
             <div className="Evaluation">
-                <EvaluationCard 
-                    current={this.state.prototypes[0]} 
-                    colors={this.props.colors}
-                    handleSubmit={this.handleSubmit}
-                />
+                {evaluationCard}
             </div>
         )
     }

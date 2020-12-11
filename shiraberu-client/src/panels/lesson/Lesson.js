@@ -82,8 +82,7 @@ class Lesson extends React.Component {
     onPass(obj) {
         return new Promise(function(resolve, reject) {
           /*stuff using obj*/
-            console.log("in lessons!")
-            console.log(obj)
+            console.log(obj.characters, obj.type, obj.didFail)
             resolve("onPass worked!");
            // reject(Error("It broke"));
         });
