@@ -19,6 +19,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Download Firebase
         run: npm install -g firebase-tools
+      - name: Download eslint
+        run: npm install -g eslint
       - name: Install Dependencies
         working-directory: ./shiraberu-client
         run: npm install
