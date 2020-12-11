@@ -7,6 +7,6 @@ module.exports = {
     verbose: false,
     "setupTestFrameworkScriptFile": "<rootDir>/src/test/setupTests.js",
     testMatch: [
-      "**/src/test/*.test.js"
+      "**/src/test/**/*.test.js"
    ],
 };
