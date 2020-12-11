@@ -39,11 +39,12 @@ class EvaluationCard extends React.Component {
 
     transcribe(event) {
         let value = event.target.value
-        //checking if the last character is "н"
-        if(value.slice(-1).toLowerCase() !== 'н'){
+        const last = value.slice(-1).toLowerCase()
+        //checking if the last character is "н" or "й"
+        if(last !== "н" && last !== "й"){
             value = cyrillicToHiragana(value)
         }
-        else {
+        else if (last === "н"){
             //if the last two are "н"
             if(this.state.answer.slice(-1) === 'н'){
                 value = this.state.answer.slice(0, -1) + "ん"
@@ -51,6 +52,16 @@ class EvaluationCard extends React.Component {
             //if just the last one is "н"
             else {
                 value = this.state.answer + "н"
+            }
+        }
+        else { // last === "й"
+            //if the last two are "й"
+            if(this.state.answer.slice(-1) === 'й'){
+                value = this.state.answer.slice(0, -1) + "い"
+            }
+            //if just the last one is "й"
+            else {
+                value = this.state.answer + "й"
             }
         }
         this.setState(
