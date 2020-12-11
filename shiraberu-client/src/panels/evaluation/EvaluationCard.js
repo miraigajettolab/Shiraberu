@@ -8,6 +8,9 @@ import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/core/styles';
+import Snackbar from '@material-ui/core/Snackbar';
+import CloseIcon from '@material-ui/icons/Close';
+import IconButton from '@material-ui/core/IconButton';
 import cyrillicToHiragana from '../../kikana-src/src/cyrillicToHiragana'
 
 /*REQUIRED PROPS:
@@ -32,9 +35,30 @@ class EvaluationCard extends React.Component {
     super(props)
         this.state = {
             answer: "",
+            isReading: null,
+            fireSnackbar: false,
+            snackbarMsg: "",
+            resultColor: null,
         }
+        this.evaluationChangeHandler = this.evaluationChangeHandler.bind(this)
         this.transcribe = this.transcribe.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleSnackbarClose = this.handleSnackbarClose.bind(this)
+    }
+
+    evaluationChangeHandler(event) {
+        const value = event.target.value
+
+        if(this.state.isReading){
+            this.transcribe(event)
+        }
+        else{
+            this.setState(
+                {
+                    answer: value
+                }
+            )
+        }
     }
 
     transcribe(event) {
@@ -72,21 +96,62 @@ class EvaluationCard extends React.Component {
     }
 
     handleSubmit(){
-        this.props.handleSubmit(this.state.answer)
+        let ans = this.state.answer;
+        if(this.state.isReading){
+            //Spaces aren't used in readings, so let's get rid of accidental ones
+            ans = ans.replace(/\s/g, '')
+        }
+        else {
+            //Remove the white spaces from both the ends of the given string
+            ans = ans.trim()
+        }
+
+        this.props.handleSubmit(ans, this.state.isReading)
+        .then(response => {
+            let resultColor = null;
+            if(response.status === "error"){
+                resultColor = "#f44336"
+            }
+            else if (response.status === "success"){
+                resultColor = "#4caf50"
+            }
+            this.setState({
+                snackbarMsg: response.msg,
+                fireSnackbar: true,
+                "resultColor": resultColor
+            })
+        })
+    }
+
+    handleSnackbarClose(){
+        this.setState({
+            snackbarMsg : "",
+            fireSnackbar: false
+        })
+    }
+
+    componentDidMount(){
+        const current = this.props.current
+        if(!current.readingPassed && !current.meaningPassed){
+            this.setState({
+                    isReading : (current.meaningFirst ? false: true)
+                }
+            )
+        }
+        else{
+            this.setState({
+                    isReading : (current.readingPassed ? false: true)
+                }
+            )
+        }
     }
 
     render() {
             const current = this.props.current
             let currentColor;
             let characters = current.characters
-            let question;
 
-            if(!current.readingPassed && !current.meaningPassed){
-                question = current.meaningFirst ? "Значение": "Чтение";
-            }
-            else{
-                question = current.readingPassed ? "Значение": "Чтение";
-            }
+            let question = this.state.isReading ? "Чтение" : "Значение";
 
             if(current.type === "R") {
                 currentColor = this.props.colors.radicals;
@@ -103,6 +168,10 @@ class EvaluationCard extends React.Component {
             else {
                 currentColor = "red"
                 characters = "Ошибка"
+            }
+
+            if(this.state.resultColor){
+                currentColor = this.state.resultColor
             }
 
         
@@ -123,20 +192,37 @@ class EvaluationCard extends React.Component {
             </CardContent>
             <hr color={"#EEEEEE"}/>
             <CardContent>
-            <ThemeProvider theme={blackTheme}>
-                <FormControl fullWidth="true">    
-                    <TextField 
-                        style={{marginBottom: "10px"}}
-                        label="Ответ"
-                        variant="outlined"
-                        color = "primary"
-                        name = "answer"
-                        type = "answer"
-                        value = {this.state.answer}
-                        onChange = {this.transcribe}
-                    />            
+                <ThemeProvider theme={blackTheme}>
+                    <FormControl fullWidth="true">    
+                        <TextField 
+                            style={{marginBottom: "10px"}}
+                            label="Ответ"
+                            variant="outlined"
+                            color = "primary"
+                            name = "answer"
+                            type = "answer"
+                            value = {this.state.answer}
+                            onChange = {this.evaluationChangeHandler}
+                        />            
                     </FormControl>
                 </ThemeProvider>
+                <Snackbar
+                anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center',
+                }}
+                open={this.state.fireSnackbar}
+                autoHideDuration={5000}
+                onClose={this.handleSnackbarClose}
+                message={this.state.snackbarMsg}
+                action={
+                    <React.Fragment>
+                      <IconButton size="small" aria-label="close" color="inherit" onClick={this.handleSnackbarClose}>
+                        <CloseIcon fontSize="small" />
+                      </IconButton>
+                    </React.Fragment>
+                }
+                />
             </CardContent>
             <CardActions>
                 <Button 
