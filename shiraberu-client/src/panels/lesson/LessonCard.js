@@ -15,7 +15,7 @@ import Typography from '@material-ui/core/Typography';
     *handleLessonQuiz
 */
 
-class Lesson extends React.Component {
+class LessonCard extends React.Component {
     constructor(props) {
     super(props)
         this.state = {}
@@ -119,4 +119,4 @@ class Lesson extends React.Component {
     }
 } 
 
-export default Lesson
+export default LessonCard

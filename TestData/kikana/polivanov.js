@@ -1,4 +1,5 @@
-{"polivanov": [
+export default {
+    "polivanov": [
     {"hiragana":"あ","katakana":"ア","cyrillic":"а"},
     {"hiragana":"い","katakana":"イ","cyrillic":"и"},
     {"hiragana":"う","katakana":"ウ","cyrillic":"у"},
@@ -85,13 +86,13 @@
     {"hiragana":"じゅ","katakana":"ジュ","cyrillic":"дзю"},
     {"hiragana":"じょ","katakana":"ジョ","cyrillic":"дзё"},
     {"hiragana":"だ","katakana":"ダ","cyrillic":"да"},
-    {"hiragana":"ぢ","katakana":"ヂ","cyrillic":"дзи"},
-    {"hiragana":"づ","katakana":"ヅ","cyrillic":"дзу"},
+    //{"hiragana":"ぢ","katakana":"ヂ","cyrillic":"дзи"}, //system collision, expected behavior already tested by じ
+    //{"hiragana":"づ","katakana":"ヅ","cyrillic":"дзу"}, //system collision, expected behavior already tested by ず
     {"hiragana":"で","katakana":"デ","cyrillic":"дэ"},
     {"hiragana":"ど","katakana":"ド","cyrillic":"до"},
-    {"hiragana":"ぢゃ","katakana":"ヂャ","cyrillic":"дзя"},
-    {"hiragana":"ぢゅ","katakana":"ヂュ","cyrillic":"дзю"},
-    {"hiragana":"ぢょ","katakana":"ヂョ","cyrillic":"дзё"},
+    //{"hiragana":"ぢゃ","katakana":"ヂャ","cyrillic":"дзя"}, //system collision, expected behavior already tested by じゃ
+    //{"hiragana":"ぢゅ","katakana":"ヂュ","cyrillic":"дзю"}, //system collision, expected behavior already tested by じゅ
+    //{"hiragana":"ぢょ","katakana":"ヂョ","cyrillic":"дзё"}, //system collision, expected behavior already tested by じょ
     {"hiragana":"ば","katakana":"バ","cyrillic":"ба"},
     {"hiragana":"び","katakana":"ビ","cyrillic":"би"},
     {"hiragana":"ぶ","katakana":"ブ","cyrillic":"бу"},
@@ -108,4 +109,4 @@
     {"hiragana":"ぴゃ","katakana":"ピャ","cyrillic":"пя"},
     {"hiragana":"ぴゅ","katakana":"ピュ","cyrillic":"пю"},
     {"hiragana":"ぴょ","katakana":"ピョ","cyrillic":"пё"}
-]}
+]};

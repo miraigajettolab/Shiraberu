@@ -11,7 +11,7 @@ class Lesson extends React.Component {
             lessonQueue: this.props.lessonQueue.slice(0, 10), // 10 at most at once
             prototypes: null,
             selected: 0,
-
+            evaluating: false,
         }
         this.getPrototypes = this.getPrototypes.bind(this)
         this.handleRightClick = this.handleRightClick.bind(this)
@@ -70,7 +70,9 @@ class Lesson extends React.Component {
     }
 
     handleLessonQuiz(){
-
+        this.setState({
+            evaluating: true
+        })
     }
 
     componentDidMount(){
@@ -104,13 +106,19 @@ class Lesson extends React.Component {
                     />
         
         }
+
+        const evaluation = <Evaluation 
+                            theme = {this.props.theme} 
+                            colors={this.props.colors}
+                            prototypes = {this.state.prototypes} 
+                            onPass = {this.onPass}
+                        />
         
         return (
                 <div className="Lesson" style={{maxWidth: "80%", marginLeft: "10%", marginTop: "10%"}}>
                     <ThemeProvider theme={this.props.theme}>
-                        {card}
+                        {this.state.evaluating ? evaluation : card}
                     </ThemeProvider>
-                    {this.state.prototypes ? <Evaluation theme = {this.props.theme} prototypes = {this.state.prototypes} onPass = {this.onPass}/> : <div></div>}
                 </div>
         )
     }
