@@ -35,15 +35,17 @@ class EvaluationCard extends React.Component {
     super(props)
         this.state = {
             answer: "",
-            isReading: null,
+            isReading: false,
             fireSnackbar: false,
             snackbarMsg: "",
             resultColor: null,
+            resolved: false,
         }
         this.evaluationChangeHandler = this.evaluationChangeHandler.bind(this)
         this.transcribe = this.transcribe.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleSnackbarClose = this.handleSnackbarClose.bind(this)
+        this.checkIsReading = this.checkIsReading.bind(this)
     }
 
     evaluationChangeHandler(event) {
@@ -105,22 +107,45 @@ class EvaluationCard extends React.Component {
             //Remove the white spaces from both the ends of the given string
             ans = ans.trim()
         }
+        if(ans.length === 0){
+            this.setState({
+                snackbarMsg : "Пустой ответ был проигнорирован",
+                fireSnackbar: true
+            })
+            return
+        }
 
-        this.props.handleSubmit(ans, this.state.isReading)
+        this.props.handleSubmit(ans, this.state.isReading, this.state.resolved)
         .then(response => {
             let resultColor = null;
+            let resolved = false;
             if(response.status === "error"){
                 resultColor = "#f44336"
+                resolved = true;
             }
             else if (response.status === "success"){
                 resultColor = "#4caf50"
+                resolved = true;
             }
             this.setState({
                 snackbarMsg: response.msg,
                 fireSnackbar: true,
-                "resultColor": resultColor
+                resultColor: resultColor,
+                resolved: resolved
             })
         })
+        .catch(e => {
+            this.setState({ //reset state
+                answer: "",
+                isReading: false,
+                fireSnackbar: false,
+                snackbarMsg: "",
+                resultColor: null,
+                resolved: false,
+            })
+            this.checkIsReading()
+        }
+        )
     }
 
     handleSnackbarClose(){
@@ -130,7 +155,7 @@ class EvaluationCard extends React.Component {
         })
     }
 
-    componentDidMount(){
+    checkIsReading(){
         const current = this.props.current
         if(!current.readingPassed && !current.meaningPassed){
             this.setState({
@@ -144,6 +169,10 @@ class EvaluationCard extends React.Component {
                 }
             )
         }
+    }
+
+    componentDidMount(){
+        this.checkIsReading();
     }
 
     render() {
@@ -230,7 +259,7 @@ class EvaluationCard extends React.Component {
                     size="small" 
                     onClick = {this.handleSubmit}
                 >
-                    Проверить
+                    {this.state.resolved ? "Дальше" : "Проверить"}
                 </Button>
             </CardActions>
             </Card>
