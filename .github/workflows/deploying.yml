@@ -22,7 +22,7 @@ jobs:
       - name: Download eslint
         run: npm install -g eslint
       - name: Download eslint-plugin-promise
-        run: npm install -g eslint-plugin-promise@latest
+        run: npm install eslint-plugin-promise@latest --save-dev
       - name: Install Dependencies
         working-directory: ./shiraberu-client
         run: npm install
