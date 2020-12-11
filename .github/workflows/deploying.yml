@@ -26,6 +26,9 @@ jobs:
       - name: Install Dependencies
         working-directory: ./shiraberu-client
         run: npm install
+      - name: Install Firebase Functions Dependedncies
+        run: npm install
+        working-directory: shiraberu-client/functions
       - name: Build
         working-directory: ./shiraberu-client
         run: npm run build
