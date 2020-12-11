@@ -1,5 +1,4 @@
 import React from "react"
-//import transcribe from '../../kikana-src/src/cyrillicToHiragana'
 import EvaluationCard from './EvaluationCard'
 
 /*REQUIRED PROPS:

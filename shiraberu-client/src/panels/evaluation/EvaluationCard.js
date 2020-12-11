@@ -8,6 +8,7 @@ import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/core/styles';
+import cyrillicToHiragana from '../../kikana-src/src/cyrillicToHiragana'
 
 /*REQUIRED PROPS:
     *current
@@ -30,16 +31,33 @@ class EvaluationCard extends React.Component {
     constructor(props) {
     super(props)
         this.state = {
-            answer: ""
+            answer: "",
         }
-        this.changeHandler = this.changeHandler.bind(this)
+        this.transcribe = this.transcribe.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
-    changeHandler(event) {
-        const name = event.target.name
-        const value = event.target.value
-        this.setState({[name]:value})
+    transcribe(event) {
+        let value = event.target.value
+        //checking if the last character is "н"
+        if(value.slice(-1).toLowerCase() !== 'н'){
+            value = cyrillicToHiragana(value)
+        }
+        else {
+            //if the last two are "н"
+            if(this.state.answer.slice(-1) === 'н'){
+                value = this.state.answer.slice(0, -1) + "ん"
+            }
+            //if just the last one is "н"
+            else {
+                value = this.state.answer + "н"
+            }
+        }
+        this.setState(
+            {
+                answer: value
+            }
+        )
     }
 
     handleSubmit(){
@@ -104,7 +122,7 @@ class EvaluationCard extends React.Component {
                         name = "answer"
                         type = "answer"
                         value = {this.state.answer}
-                        onChange = {this.changeHandler}
+                        onChange = {this.transcribe}
                     />            
                     </FormControl>
                 </ThemeProvider>
