@@ -1,8 +1,11 @@
+name: Test Cloud Functions
 on: [push, pull_request]
+
 jobs:
   emulator_test:
     name: Run tests using Firebase Emulator Suite
     runs-on: ubuntu-latest
+    
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
