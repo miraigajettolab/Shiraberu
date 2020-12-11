@@ -17,14 +17,14 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Download Firebase
+        run: npm install -g firebase-tools
       - name: Install Dependencies
         working-directory: ./shiraberu-client
         run: npm install
       - name: Build
         working-directory: ./shiraberu-client
         run: npm run build
-      - name: Download Firebase
-        run: npm install -g firebase-tools
       - name: Deploy to Firebase
         working-directory: ./shiraberu-client
         run: firebase deploy --token ${{ secrets.FIREBASE_TOKEN }}
