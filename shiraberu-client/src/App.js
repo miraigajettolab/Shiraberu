@@ -51,19 +51,22 @@ class App extends React.Component {
         main: '#a108ee',
         dark: '#6a00ba',
         contrastText: '#fff',
-      },
-      radicals : '#10f6a9',
-      kanji: '#f7aa11',
-      vocab: '#a108ee',
+      }
     },
   });
+
+  const colors = {
+    radicals : '#10f6a9',
+    kanji: '#f7aa11',
+    vocab: '#a108ee',
+  }
   switch (this.state.activePanel) {
       case "Loading":
         return <Loading theme={theme}/>
       case "Home":
         return <Home activePanelHandler = {this.activePanelHandler} handleLesson = {this.handleLesson} theme={theme}/>
       case "Lesson":
-        return <Lesson activePanelHandler = {this.activePanelHandler} lessonQueue = {this.state.lessonQueue} theme={theme}/>
+        return <Lesson activePanelHandler = {this.activePanelHandler} lessonQueue = {this.state.lessonQueue} theme={theme} colors={colors}/>
       case "SignIn":
         return <SignIn activePanelHandler = {this.activePanelHandler} theme={theme}/>
       case "SignUp":

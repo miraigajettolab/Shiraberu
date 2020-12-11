@@ -1,10 +1,6 @@
 import React from "react"
 import { ThemeProvider } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 
 /*REQUIRED PROPS:
     *theme
@@ -29,6 +25,7 @@ class Evaluation extends React.Component {
                     "meaningPassed" : false,
                     "readingPassed" : prot.type === "R" ? true : false, //radicals don't have readings
                     "didFail": false,
+                    "meaningFirst" : prot.type === "R" ? true : (Math.random() < 0.5), //50% of getting true, unless it's a radical //TODO: TEST
                 })
             }),
             shuffleDepth: this.props.shuffleDepth ? this.props.shuffleDepth : 10, //setting default depth if prop wasn't passed

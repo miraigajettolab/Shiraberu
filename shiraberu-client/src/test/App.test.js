@@ -1,10 +1,11 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
 import App from '../App'
 import * as firebase from 'firebase'
 import { shallow } from 'enzyme';
 
-const onAuthStateChanged = jest.fn()
+const onAuthStateChanged = jest.fn(() => {
+  return Promise.resolve('result of sendEmailVerification')
+})
 
 const getRedirectResult = jest.fn(() => {
   return Promise.resolve({
@@ -79,6 +80,7 @@ jest.spyOn(firebase, 'auth').mockImplementation(() => {
 test('Test test', () => {
     const wrapper = shallow(<App />)
     expect(wrapper.state().activePanel).toEqual('Loading');
+    console.log(wrapper.state())
 })
 
 afterEach(() => {
