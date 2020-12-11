@@ -1,0 +1,3 @@
+[submodule "shiraberu-client/src/kikana-src"]
+	path = shiraberu-client/src/kikana-src
+	url = https://github.com/miraigajettolab/kikana
