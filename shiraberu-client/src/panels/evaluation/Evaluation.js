@@ -79,12 +79,65 @@ class Evaluation extends React.Component {
     }
 
 
-    handleSubmit(answer){
-        console.log(answer)
-        //TODO: Write me
-        /*this.setState({
-            selected: this.state.selected + 1
-        })*/
+    handleSubmit(answer, isReading){
+        const current = this.state.prototypes[0]
+        return new Promise(function(resolve, reject) {
+            if(isReading){
+                const readings = current.readings.map(rd => rd.kana)
+                //If the type is Kanji than we have to consider if reading is accepted
+                if(current.type === "K"){
+                    let acceptedReadings = current.readings.filter(rd => rd.is_accepted === true)
+                    acceptedReadings = acceptedReadings.map(rd => rd.kana)
+                    if(acceptedReadings.includes(answer)){
+                        resolve({
+                            "msg":"Accepted",
+                            "status":"success",
+                        }) //TODO:
+                    }
+                    else if(readings.includes(answer)){
+                        resolve({
+                            "msg":"We're looking for a different reading",
+                            "status":"warning",
+                        }) //TODO:
+                    }
+                    else {
+                        resolve({
+                            "msg":"Wrong...",
+                            "status":"error",
+                        }) //TODO:
+                    }
+                }
+                else { //The type is Vocab
+                    if(readings.includes(answer)){
+                        resolve({
+                            "msg":"Accepted",
+                            "status":"success",
+                        }) //TODO:
+                    }
+                    else {
+                        resolve({
+                            "msg":"Wrong...",
+                            "status":"error",
+                        }) //TODO:
+                    }
+                }
+            } 
+            else { //TODO: add Damerau - Levenshtein
+                const meanings = current.meanings.map(mn => mn.text.toLowerCase())
+                if(meanings.includes(answer.toLowerCase())){
+                    resolve({
+                        "msg":"Accepted",
+                        "status":"success",
+                    }) //TODO:
+                }
+                else {
+                    resolve({
+                        "msg":"Wrong...",
+                        "status":"error",
+                    }) //TODO:
+                }
+            }
+        });
     }
 
     //Do not call this directly, only handleMeaningPass and handleReadingPass should do so
