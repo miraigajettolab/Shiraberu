@@ -1,4 +1,6 @@
-{"data" : [{
+//27
+export default {
+"data" : [{
     "id": 1,
     "type": "R",
     "is_hidden": false,

@@ -1,4 +1,6 @@
-{"data": [
+//(only2)
+export default {
+"data": [
     {
         "id": 27,
         "type": "K",
