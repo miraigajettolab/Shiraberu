@@ -1,5 +1,6 @@
 import React from "react"
 import EvaluationCard from './EvaluationCard'
+import IsJapanese from '../../kikana-src/src/isJapanese'
 
 /*REQUIRED PROPS:
     *theme
@@ -108,6 +109,14 @@ class Evaluation extends React.Component {
                         })
                     })
                 }
+                else if(!IsJapanese(answer)){
+                    return new Promise(function(resolve, reject) {
+                        resolve({
+                            "msg":"Чтение нужно написать на японском!",
+                            "status":"warning",
+                        })
+                    })
+                }
                 else {
                     if(resolved){
                         this.handleOnFail()
@@ -131,6 +140,14 @@ class Evaluation extends React.Component {
                         resolve({
                             "msg":"Верно",
                             "status":"success",
+                        })
+                    })
+                }
+                else if(!IsJapanese(answer)){
+                    return new Promise(function(resolve, reject) {
+                        resolve({
+                            "msg":"Чтение нужно написать на японском!",
+                            "status":"warning",
                         })
                     })
                 }
