@@ -1,5 +1,5 @@
-import cyrillicToHiragana from '../kikana-src/src/cyrillicToHiragana'
-import pv from '../../../TestData/kikana/polivanov'
+import cyrillicToHiragana from '../../kikana-src/src/cyrillicToHiragana'
+import pv from './polivanov'
 
 test('That Kikana Supports Polivanov System', () => {
     pv.polivanov.forEach(mora => {
