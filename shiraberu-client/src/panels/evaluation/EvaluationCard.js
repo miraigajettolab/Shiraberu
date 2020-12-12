@@ -228,6 +228,7 @@ class EvaluationCard extends React.Component {
                             label="Ответ"
                             variant="outlined"
                             color = "primary"
+                            disabled = {this.state.resolved ? true : false}
                             name = "answer"
                             type = "answer"
                             value = {this.state.answer}
