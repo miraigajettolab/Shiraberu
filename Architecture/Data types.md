@@ -74,7 +74,7 @@ User could add meaning to the array **aux_meanings** that will be accepted durin
 | Field | Type | Allow nulls | Description |
 | --- | --- | --- | --- |
 | id | number | - | Document ID |
-| prototype_id | reference | - | Document ID of item's prototype |
+| prototype_id | reference | - | Document ID of item's prototype, same as Document ID |
 | aux_meanings | array of strings | allow | Meanings added by the user as synonyms | 
 | reading_note | string | allow | Reading notes added by the user | 
 | meaning_note | string | allow | Meaning notes added by the user | 
