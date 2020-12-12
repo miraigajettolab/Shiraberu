@@ -82,3 +82,84 @@ test('That Evaluation module handles correct inputs', async function (){
         expect(listOfPassedItems).toContain(prot.id)
     })
 })
+
+test('That Evaluation module handles incorrect inputs (that still eventually pass)', async function (){
+    let listOfPassedItems = []
+    let listOfFailedItems = []
+
+    function  onPass(obj) {
+        return new Promise(function(resolve, reject) {
+            if (!obj.didFail){
+                listOfPassedItems.push(obj.id)
+            }
+            else{
+                listOfFailedItems.push(obj.id)
+            }
+            resolve();
+        });
+    }
+
+    const wrapper = shallow(
+        <Evaluation 
+            theme = {null} 
+            colors={null}
+            prototypes = {prototypes}
+            onPass = {onPass}
+        />
+    )
+
+    let listToFail = [];
+    const failureRate = Math.random() // random failure probability //TODO: try normal distribution
+    //We will fail an item 
+    prototypes.forEach(prot => {
+        if (Math.random() < failureRate){ //Happens with probability of FailureRate, since Math.random() has uniform distribution
+            listToFail.push({
+                "id" : prot.id,
+                "remainingFails": parseInt(Math.random()*10)+1 //random number between 1 and 10 //TODO: try normal distribution
+            })
+        } 
+    })
+
+    while(wrapper.instance().state.prototypes[0]){
+        const isReading =  checkIsReading(wrapper.instance().state.prototypes[0])
+        const currentId =  wrapper.instance().state.prototypes[0].id
+        const indexInFailList = listToFail.findIndex(x => x.id === currentId);
+        let answer = ""
+
+        if(isReading) {
+            answer = prototypes.find(x => x.id === currentId).correctReading
+        }
+        else {
+            answer = prototypes.find(x => x.id === currentId).correctMeaning
+        }
+
+        if(indexInFailList !== -1 && listToFail[indexInFailList].remainingFails > 0){
+            //If we want to fail an item we need to garble the correct answer
+            //Appending reversed correct answer to correct answer will produce an incorrect answer 
+            answer += answer.split("").reverse().join("");
+            //But just in case let's take answer appended with a randomly shuffled version of itself
+            answer += answer.split("").sort(function(){return 0.5-Math.random()}).join('');
+            //Example of meaning garbling Person => PersonnosrePsPorenrnoseP
+            //Example of reading garbling みっつ => みっつつっみっみみつっつ
+
+            //We need to decrement the remainingFails of this item
+            let failItem = listToFail[indexInFailList];
+            failItem.remainingFails -= 1
+            listToFail[indexInFailList] = failItem
+        }
+
+        await wrapper.instance().handleSubmit(answer, isReading, true).catch(e => null)
+    }
+
+    //For each prot expect that
+    prototypes.forEach(prot => {
+        //It either passed or failed
+        expect(listOfPassedItems.concat(listOfFailedItems)).toContain(prot.id)
+    })
+    listToFail.forEach(failItem => {
+        //All items mentioned in listToFail should be in listOfFailedItems
+        expect(listOfFailedItems).toContain(failItem.id)
+        //All items mentioned in listToFail shouldn't be in listOfPassedItems
+        expect(listOfPassedItems).not.toContain(failItem.id)
+    })
+})
