@@ -179,7 +179,7 @@ class Evaluation extends React.Component {
 
     //Do not call this directly, only handleMeaningPass and handleReadingPass should do so
     handleOnPass(){
-        this.props.onPass(this.state.prototypes[0]).then(confirmation => {
+        this.props.onPass(this.state.prototypes[0], this.state.prototypes.length-1).then(confirmation => {
             //After the promise is fulfilled we want to remove the prototype from queue
             //We don't want to mutate state directly 
             let prevPrototypes = this.state.prototypes; 
@@ -246,7 +246,7 @@ class Evaluation extends React.Component {
     }
 
     render() {
-        let evaluationCard = "Всё!"
+        let evaluationCard = <div><h1>Загрузка...</h1></div> //It's unlikely someone ever will see this
         if(this.state.prototypes.length > 0) {
             evaluationCard = <EvaluationCard 
                 current={this.state.prototypes[0]} 

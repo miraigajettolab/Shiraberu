@@ -79,14 +79,17 @@ class Lesson extends React.Component {
         this.getPrototypes();
     }
 
-    onPass(obj) {
+    onPass(obj, remaining) {
+        if (remaining === 0){
+            console.log("DONE")
+        }
         return new Promise(function(resolve, reject) {
           /*stuff using obj*/
-            console.log(obj.characters, obj.type, obj.didFail)
-            resolve("onPass worked!");
+            resolve();
            // reject(Error("It broke"));
         });
     }
+    
 
     render() {
         let card = <div></div>

@@ -45,7 +45,7 @@ prototypes = prototypes.map(prot => {
 test('That Evaluation module handles correct inputs', async function (){
     let listOfPassedItems = []
 
-    function  onPass(obj) {
+    function onPass(obj, remaining) {
         return new Promise(function(resolve, reject) {
             if (!obj.didFail){
                 listOfPassedItems.push(obj.id)
@@ -87,7 +87,7 @@ test('That Evaluation module handles incorrect inputs (that still eventually pas
     let listOfPassedItems = []
     let listOfFailedItems = []
 
-    function  onPass(obj) {
+    function  onPass(obj, remaining) {
         return new Promise(function(resolve, reject) {
             if (!obj.didFail){
                 listOfPassedItems.push(obj.id)
