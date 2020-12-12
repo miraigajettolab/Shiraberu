@@ -1,11 +1,10 @@
 import React from "react"
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 /*REQUIRED PROPS:
+    *activePanelHandler
     *prototypes
     *colors
 */
@@ -52,9 +51,23 @@ class LessonSummary extends React.Component {
         });
 
         console.log(cards)
-        return (<div style={{display: "flex", flexWrap: "wrap"}}>
-            {cards}
-            </div>)
+        return (<div>
+            <Button
+                style={{width: "100%", marginBottom: "10px"}}
+                className="ExtraContainerChild"
+                variant="contained" 
+                color="primary" 
+                onClick={event => this.props.activePanelHandler("Home", event)}>
+                Домой
+            </Button>
+            <hr color={"#EEEEEE"}/>
+            <Typography variant="h5" component="h5" style = {{textAlign: "left", marginBottom: "10px"}}>
+            Результаты урока:
+            </Typography>
+            <div style={{display: "flex", flexWrap: "wrap"}}>
+                {cards}
+            </div>
+        </div>)
     }
 } 
 

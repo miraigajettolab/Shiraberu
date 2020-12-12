@@ -5,6 +5,12 @@ import Evaluation from '../evaluation/Evaluation'
 import LessonCard from './LessonCard'
 import LessonSummary from './LessonSummary'
 
+/*REQUIRED PROPS:
+    *activePanelHandler
+    *handleLesson
+    *theme
+*/
+
 class Lesson extends React.Component {
     constructor(props) {
     super(props)
@@ -124,6 +130,7 @@ class Lesson extends React.Component {
                             theme = {this.props.theme} 
                             colors={this.props.colors}
                             prototypes = {this.state.prototypes} 
+                            activePanelHandler = {this.props.activePanelHandler}
                     />
                         
         let lessonModuleContent
