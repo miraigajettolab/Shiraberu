@@ -3,6 +3,7 @@ import * as firebase from "firebase"
 import { ThemeProvider } from '@material-ui/core/styles';
 import Evaluation from '../evaluation/Evaluation'
 import LessonCard from './LessonCard'
+import LessonSummary from './LessonSummary'
 
 class Lesson extends React.Component {
     constructor(props) {
@@ -11,12 +12,13 @@ class Lesson extends React.Component {
             lessonQueue: this.props.lessonQueue.slice(0, 10), // 10 at most at once
             prototypes: null,
             selected: 0,
-            evaluating: false,
+            lessonMode: "default"
         }
         this.getPrototypes = this.getPrototypes.bind(this)
         this.handleRightClick = this.handleRightClick.bind(this)
         this.handleLeftClick = this.handleLeftClick.bind(this)
         this.handleLessonQuiz = this.handleLessonQuiz.bind(this)
+        this.onPass = this.onPass.bind(this)
     }
 
     comparePrototypes(prototype1, prototype2, key) {
@@ -71,7 +73,7 @@ class Lesson extends React.Component {
 
     handleLessonQuiz(){
         this.setState({
-            evaluating: true
+            lessonMode: "evaluation"
         })
     }
 
@@ -81,7 +83,9 @@ class Lesson extends React.Component {
 
     onPass(obj, remaining) {
         if (remaining === 0){
-            console.log("DONE")
+            this.setState({
+                lessonMode: "summary"
+            })
         }
         return new Promise(function(resolve, reject) {
           /*stuff using obj*/
@@ -116,10 +120,32 @@ class Lesson extends React.Component {
                             onPass = {this.onPass}
                         />
         
+        const summary = <LessonSummary
+                            theme = {this.props.theme} 
+                            colors={this.props.colors}
+                            prototypes = {this.state.prototypes} 
+                    />
+                        
+        let lessonModuleContent
+        switch (this.state.lessonMode) {
+            case "default":
+                lessonModuleContent = card    
+                break;
+            case "evaluation":
+                lessonModuleContent = evaluation    
+                break;
+            case "summary":
+                lessonModuleContent = summary    
+                break;
+            default:
+                lessonModuleContent = <p>Ошибка! Обратитесь в техподдержку</p>   
+                break;
+        }
+
         return (
                 <div className="Lesson" style={{maxWidth: "80%", marginLeft: "10%", marginTop: "10%"}}>
                     <ThemeProvider theme={this.props.theme}>
-                        {this.state.evaluating ? evaluation : card}
+                        {lessonModuleContent}
                     </ThemeProvider>
                 </div>
         )
