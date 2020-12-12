@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import EvaluationCard from '../../../panels/evaluation/EvaluationCard'
+import EvaluationCard from '../../../src/panels/evaluation/EvaluationCard'
 import songLyrics from './umiyuriSongLyrics'
 
 // Component needs it

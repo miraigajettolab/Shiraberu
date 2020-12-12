@@ -1,5 +1,5 @@
 import React from 'react';
-import App from '../App'
+import App from '../src/App'
 import * as firebase from 'firebase'
 import { shallow } from 'enzyme';
 

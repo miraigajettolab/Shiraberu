@@ -1,4 +1,4 @@
-import cyrillicToHiragana from '../../kikana-src/src/cyrillicToHiragana'
+import cyrillicToHiragana from '../../src/kikana-src/src/cyrillicToHiragana'
 import pv from './polivanov'
 
 test('That Kikana Supports Polivanov System', () => {
