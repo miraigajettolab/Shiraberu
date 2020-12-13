@@ -66,6 +66,8 @@ class Home extends React.Component {
     }
 
     getIndices(){
+        // reference to self, we need to save it before we get into the promise chain
+        const self = this.getIndices
         var t0 = performance.now()
         const db = firebase.firestore();
         db.collection('Prototypes').doc('index').get()
@@ -89,12 +91,14 @@ class Home extends React.Component {
                 return 0
                 })
             .catch(function(error) {
-                console.log("Error getting documents: ", error);
-                return -1
+                console.log("Error getting documents: Let's try again in one second");
+                //Let's wait for one second and restart the method
+                const delay = t => new Promise(resolve => setTimeout(resolve, t));
+                delay(1000).then(() => self());
             })
         })
         .catch(function(error) {
-            console.log("Error getting documents: ", error);
+            console.log("Failed to connect: ", error);
             return -1
         })
     }
