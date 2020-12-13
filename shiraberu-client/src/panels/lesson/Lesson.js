@@ -93,6 +93,48 @@ class Lesson extends React.Component {
                 lessonMode: "summary"
             })
         }
+
+        const firestore = firebase.firestore();
+        const uid =  firebase.auth().currentUser.uid;
+        const extraDataRef = firestore.collection('Users').doc(uid).collection('Items').doc(''+obj.id)
+        const indexRef = firestore.collection('Users').doc(uid).collection('Items').doc('index')
+        const srsRef = firestore.collection('Scheme').doc('srs-intervals')
+
+        srsRef.get()
+        .then(srsSnap => {
+            const srs = srsSnap.data();
+            console.log(srs.stages[1])
+            //In case something changed
+            indexRef.get()
+            .then(indexSnap => {
+                let indexItem = indexSnap.data()[obj.id]
+                //If current srs stage is zero lets learn the item
+                if(indexItem.srs === 0){
+                    indexItem.srs = 1
+                    const currentTimestamp = new Date().getTime()
+                    indexItem.due = currentTimestamp + srs.stages[1].interval*1000;
+                    indexRef.update({[obj.id] : indexItem})
+                    .then(obj => {
+                        extraDataRef.set({
+                            "aux_meanings": null,
+                            "reading_note": null,
+                            "meaning_note": null,
+                            "learned_at": currentTimestamp,
+                            "burned_at": null,
+                            "meaning_rev": 0,
+                            "meaning_rev_correct": 0,
+                            "meaning_rev_streak": 0,
+                            "meaning_rev_max_streak": 0,
+                            "reading_rev": 0,
+                            "reading_rev_correct": 0,
+                            "reading_rev_streak": 0,
+                            "reading_rev_max_streak": 0,
+                        })
+                    })
+                }
+            })
+        })
+
         return new Promise(function(resolve, reject) {
           /*stuff using obj*/
             resolve();
