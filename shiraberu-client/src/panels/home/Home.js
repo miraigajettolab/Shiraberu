@@ -119,6 +119,7 @@ class Home extends React.Component {
                             style = {{height: "120px"}}
                             className="ExtraContainerChild"
                             variant="contained" 
+                            disabled = { this.state.lessonQueue && this.state.lessonQueue.length > 0 ? false : true}
                             color="secondary" 
                             onClick={this.handleLesson}>
                                 Уроки: {this.state.lessonQueue ? this.state.lessonQueue.length: ""}
