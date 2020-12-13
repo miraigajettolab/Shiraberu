@@ -6,6 +6,7 @@ import ResetPassword from "./panels/resetPassword/ResetPassword"
 import Home from "./panels/home/Home"
 import Loading from "./util/Loading"
 import Lesson from './panels/lesson/Lesson'
+import Greeting from './panels/greeting/Greeting'
 
 import * as firebase from "firebase"
 import { createMuiTheme } from '@material-ui/core/styles';
@@ -17,7 +18,22 @@ class App extends React.Component {
       this.state = {activePanel: "Loading"}
       firebase.auth().onAuthStateChanged(function(user) {
           if (user) {
+            const metadata = firebase.auth().currentUser.metadata
+            //Show greeting only to users who logged in for the first time
+            if (metadata.creationTime === metadata.lastSignInTime) {
+                //We need to show this only once ever, so let's use localStorage to store if we did
+                let alerted = localStorage.getItem('alerted'+user.uid) || '';
+                if (alerted !== "yes") {
+                  this.setState({activePanel: "Greeting"})
+                  localStorage.setItem('alerted'+user.uid, "yes")
+                }
+                else { //If the user is logged in for the first time but already saw the greeting 
+                  this.setState({activePanel: "Home"})
+                }
+            } 
+            else {
               this.setState({activePanel: "Home"})
+            }
           } else {
               this.setState({activePanel: "SignIn"})
           }
@@ -71,6 +87,8 @@ class App extends React.Component {
         return <SignIn activePanelHandler = {this.activePanelHandler} theme={theme}/>
       case "SignUp":
         return <SignUp activePanelHandler = {this.activePanelHandler} theme={theme}/>
+      case "Greeting":
+        return <Greeting activePanelHandler = {this.activePanelHandler} theme={theme}/>
       case "ResetPassword":
         return <ResetPassword activePanelHandler = {this.activePanelHandler} theme={theme}/>
       default:

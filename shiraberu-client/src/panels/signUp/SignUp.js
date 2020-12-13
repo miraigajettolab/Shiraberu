@@ -90,7 +90,7 @@ class SignUp extends React.Component {
                     level: 1,
                 })
             })
-            .then(user => this.props.activePanelHandler("Home", user))
+            .then(user => this.props.activePanelHandler("Greeting", user))
             .catch(e => {
                 let rusMessage
                 switch (e.code) {
