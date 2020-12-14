@@ -4,6 +4,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import Evaluation from '../evaluation/Evaluation'
 import ReviewSummary from './ReviewSummary'
 import Loading from '../../util/Loading'
+import HomeButton from '../../util/HomeButton'
 
 /*REQUIRED PROPS:
     *activePanelHandler
@@ -143,10 +144,15 @@ class Review extends React.Component {
         }
 
         return (
-                <div className="Review" style={{maxWidth: "80%", marginLeft: "10%", marginTop: "10%"}}>
+                <div>
                     <ThemeProvider theme={this.props.theme}>
-                        {reviewModuleContent}
+                        <HomeButton go={this.props.activePanelHandler}/>
                     </ThemeProvider>
+                    <div className="Review" style={{maxWidth: "80%", marginLeft: "10%", marginTop: "0%"}}>
+                        <ThemeProvider theme={this.props.theme}>
+                            {reviewModuleContent}
+                        </ThemeProvider>
+                    </div>
                 </div>
         )
     }
