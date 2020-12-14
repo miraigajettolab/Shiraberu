@@ -1,6 +1,7 @@
 import React from "react"
 import EvaluationCard from './EvaluationCard'
 import IsJapanese from '../../kikana-src/src/isJapanese'
+import EvaluationSummary from './EvaluationSummary'
 
 /*REQUIRED PROPS:
     *theme
@@ -8,6 +9,8 @@ import IsJapanese from '../../kikana-src/src/isJapanese'
     *shuffleDepth   - how "deep" the shuffle is
     *prototypes - array of objects of Prototype data type
     *onPass     - promise
+    *type - lesson" or "review"
+    *showSummary - show summary if this is true
 */
 
 class Evaluation extends React.Component {
@@ -26,6 +29,15 @@ class Evaluation extends React.Component {
                     "readingPassed" : prot.type === "R" ? true : false, //radicals don't have readings
                     "didFail": false,
                     "meaningFirst" : prot.type === "R" ? true : (Math.random() < 0.5), //50% of getting true, unless it's a radical //TODO: TEST
+                })
+            }),
+            summaryData: this.props.prototypes.map(prot => {
+                return ({
+                    "id": prot.id,
+                    "type": prot.type,
+                    "characters": prot.characters ? prot.characters : null, //just in case
+                    "radical_picture": prot.radical_picture ? prot.radical_picture : null,
+                    "didFail": false,
                 })
             }),
             shuffleDepth: this.props.shuffleDepth ? this.props.shuffleDepth : 10, //setting default depth if prop wasn't passed
@@ -248,10 +260,14 @@ class Evaluation extends React.Component {
     handleOnFail(){
         //We don't want to mutate state directly 
         let prevPrototypes = this.state.prototypes;
+        let prevSummaryData = this.state.summaryData;
         //Fail the current one
         prevPrototypes[0].didFail = true;
+        //Save data for the summary
+        prevSummaryData.find(x => x.id === prevPrototypes[0].id).didFail = true;
         this.setState({
-            prototypes: prevPrototypes
+            prototypes: prevPrototypes,
+            summaryData: prevSummaryData
         })
         //Shuffle it out
         this.shuffleCurrent();
@@ -263,9 +279,18 @@ class Evaluation extends React.Component {
     }
 
     render() {
-        let evaluationCard = <div><h1>Загрузка...</h1></div> //It's unlikely someone ever will see this
-        if(this.state.prototypes.length > 0) {
-            evaluationCard = <EvaluationCard 
+        let evaluationContent = <div><h1>Загрузка...</h1></div> //It's unlikely someone ever will see this
+        if(this.props.showSummary){
+            evaluationContent = <EvaluationSummary
+                theme = {this.props.theme} 
+                colors={this.props.colors}
+                summaryData = {this.state.summaryData} 
+                activePanelHandler = {this.props.activePanelHandler}
+                type = {this.props.type}
+            />
+        }
+        else if(this.state.prototypes.length > 0) {
+            evaluationContent = <EvaluationCard 
                 current={this.state.prototypes[0]} 
                 colors={this.props.colors}
                 handleSubmit={this.handleSubmit}
@@ -273,7 +298,7 @@ class Evaluation extends React.Component {
         }
         return (
             <div className="Evaluation">
-                {evaluationCard}
+                {evaluationContent}
             </div>
         )
     }
