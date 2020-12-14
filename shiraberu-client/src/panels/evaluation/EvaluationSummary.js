@@ -56,8 +56,8 @@ class EvaluationSummary extends React.Component {
     }
 
     render() {
-        let passCards = this.state.summaryData.filter(current => current.didFail == false)
-        let failCards = this.state.summaryData.filter(current => current.didFail == true)
+        let passCards = this.state.summaryData.filter(current => current.didFail === false)
+        let failCards = this.state.summaryData.filter(current => current.didFail === true)
 
         passCards = this.makeCards(passCards)
         failCards = this.makeCards(failCards)
