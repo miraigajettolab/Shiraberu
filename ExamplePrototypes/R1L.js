@@ -273,10 +273,10 @@ export default {
     "components": null,
     "characters": "口",
     "radical_picture": null,
-    "meaning_mnemonic" : "Mouth",
+    "meaning_mnemonic" : "A big, gaping, square hole represents someone opening their giant mouth to tell you something stupid.",
     "meanings": [
         {
-            "text": "A big, gaping, square hole represents someone opening their giant mouth to tell you something stupid.",
+            "text": "Mouth",
             "is_primary": true
         }
     ],
