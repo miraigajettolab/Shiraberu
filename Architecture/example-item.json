@@ -2,7 +2,7 @@
     "aux_meanings": null,
     "reading_note": null,
     "meaning_note": null,
-    "learned_at": currentTimestamp,
+    "learned_at": "", //currentTimestamp
     "burned_at": null,
     "meaning_rev": 0,
     "meaning_rev_correct": 0,
