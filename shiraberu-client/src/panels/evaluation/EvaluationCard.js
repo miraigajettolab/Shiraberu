@@ -46,6 +46,8 @@ class EvaluationCard extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleSnackbarClose = this.handleSnackbarClose.bind(this)
         this.checkIsReading = this.checkIsReading.bind(this)
+        this.handleSubmitKeypress = this.handleSubmitKeypress.bind(this)
+        this.textInput = React.createRef();
     }
 
     evaluationChangeHandler(event) {
@@ -95,6 +97,13 @@ class EvaluationCard extends React.Component {
                 answer: value
             }
         )
+    }
+
+    handleSubmitKeypress(event){
+        let code = event.keyCode || event.which;
+        if (code === 13) {
+            this.handleSubmit();
+        }
     }
 
     handleSubmit(){
@@ -173,7 +182,20 @@ class EvaluationCard extends React.Component {
 
     componentDidMount(){
         this.checkIsReading();
+        document.addEventListener("keydown", this.handleSubmitKeypress)
     }
+
+    componentWillUnmount(){
+        // removing listener when the component is unmounted
+        document.removeEventListener("keydown", this.handleSubmitKeypress)
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.resolved && !this.state.resolved) {
+           console.log("focus")
+           this.textInput.current.focus();
+        }
+      }
 
     render() {
             const current = this.props.current
@@ -226,10 +248,13 @@ class EvaluationCard extends React.Component {
                         <TextField 
                             style={{marginBottom: "10px"}}
                             label="Ответ"
+                            autoFocus
+                            inputRef={this.textInput}
                             variant="outlined"
                             color = "primary"
                             disabled = {this.state.resolved ? true : false}
                             name = "answer"
+                            onKeyPress={this.handleSubmitKeypress}
                             type = "answer"
                             value = {this.state.answer}
                             onChange = {this.evaluationChangeHandler}
