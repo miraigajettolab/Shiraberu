@@ -58,7 +58,7 @@ class Review extends React.Component {
 
         const firestore = firebase.firestore();
         const uid =  firebase.auth().currentUser.uid;
-        const extraDataRef = firestore.collection('Users').doc(uid).collection('Items').doc(''+obj.id)
+        //const extraDataRef = firestore.collection('Users').doc(uid).collection('Items').doc(''+obj.id)
         const indexRef = firestore.collection('Users').doc(uid).collection('Items').doc('index')
         const srsRef = firestore.collection('Scheme').doc('srs-intervals')
 
