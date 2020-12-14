@@ -3,7 +3,6 @@ import * as firebase from "firebase"
 import { ThemeProvider } from '@material-ui/core/styles';
 import Evaluation from '../evaluation/Evaluation'
 import LessonCard from './LessonCard'
-import LessonSummary from './LessonSummary'
 import HomeButton from '../../util/HomeButton'
 
 /*REQUIRED PROPS:
@@ -19,7 +18,8 @@ class Lesson extends React.Component {
             lessonQueue: this.props.lessonQueue.slice(0, 10), // 10 at most at once
             prototypes: null,
             selected: 0,
-            lessonMode: "default"
+            lessonMode: "default",
+            showSummary: false
         }
         this.getPrototypes = this.getPrototypes.bind(this)
         this.handleRightClick = this.handleRightClick.bind(this)
@@ -91,7 +91,7 @@ class Lesson extends React.Component {
     onPass(obj, remaining) {
         if (remaining === 0){
             this.setState({
-                lessonMode: "summary"
+                showSummary: true
             })
         }
 
@@ -167,14 +167,10 @@ class Lesson extends React.Component {
                             colors={this.props.colors}
                             prototypes = {this.state.prototypes} 
                             onPass = {this.onPass}
-                        />
-        
-        const summary = <LessonSummary
-                            theme = {this.props.theme} 
-                            colors={this.props.colors}
-                            prototypes = {this.state.prototypes} 
+                            type = {"lesson"}
                             activePanelHandler = {this.props.activePanelHandler}
-                    />
+                            showSummary = {this.state.showSummary}
+                        />
                         
         let lessonModuleContent
         switch (this.state.lessonMode) {
@@ -183,9 +179,6 @@ class Lesson extends React.Component {
                 break;
             case "evaluation":
                 lessonModuleContent = evaluation    
-                break;
-            case "summary":
-                lessonModuleContent = summary    
                 break;
             default:
                 lessonModuleContent = <p>Ошибка! Обратитесь в техподдержку</p>   

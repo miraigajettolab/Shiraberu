@@ -5,27 +5,30 @@ import Typography from '@material-ui/core/Typography';
 
 /*REQUIRED PROPS:
     *activePanelHandler
-    *prototypes
+    *summaryData
     *colors
+    *type //"lesson" or "review"
 */
 
-class LessonSummary extends React.Component {
+class EvaluationSummary extends React.Component {
     constructor(props) {
     super(props)
     this.state = {
-        prototypes: this.props.prototypes.map(prot => {
+        summaryData: this.props.summaryData.map(prot => {
             return ({
                 "id": prot.id,
                 "type": prot.type,
                 "characters": prot.characters ? prot.characters : null, //just in case
                 "radical_picture": prot.radical_picture ? prot.radical_picture : null,
+                "didFail": prot.didFail
             })
         })
     }
+    this.makeCards = this.makeCards.bind(this)
     }
 
-    render() {
-        let cards = this.state.prototypes.map(current => {
+    makeCards(cards){
+        return cards.map(current => {
             let currentColor;
 
             if(current.type === "R") {
@@ -50,7 +53,15 @@ class LessonSummary extends React.Component {
             </Card>
         });
 
-        console.log(cards)
+    }
+
+    render() {
+        let passCards = this.state.summaryData.filter(current => current.didFail === false)
+        let failCards = this.state.summaryData.filter(current => current.didFail === true)
+
+        passCards = this.makeCards(passCards)
+        failCards = this.makeCards(failCards)
+
         return (<div>
             <Button
                 style={{width: "100%", marginBottom: "10px"}}
@@ -62,13 +73,24 @@ class LessonSummary extends React.Component {
             </Button>
             <hr color={"#EEEEEE"}/>
             <Typography variant="h5" component="h5" style = {{textAlign: "left", marginBottom: "10px"}}>
-            Результаты урока:
+                {this.props.type === "lesson" ? "Результаты урока:" : "Результаты ревью:"}
             </Typography>
+            {failCards.length > 0 ? 
+            <Typography variant="h7" component="h7" style = {{textAlign: "left", marginBottom: "10px"}}>
+                Отвечено неверно:
+            </Typography> : <div></div>}
             <div style={{display: "flex", flexWrap: "wrap"}}>
-                {cards}
+                {failCards}
+            </div>
+            {passCards.length > 0 ? 
+            <Typography variant="h7" component="h7" style = {{textAlign: "left", marginBottom: "10px"}}>
+                Отвечено верно:
+            </Typography> : <div></div>}
+            <div style={{display: "flex", flexWrap: "wrap"}}>
+                {passCards}
             </div>
         </div>)
     }
 } 
 
-export default LessonSummary
+export default EvaluationSummary

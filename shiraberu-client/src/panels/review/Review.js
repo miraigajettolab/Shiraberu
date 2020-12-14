@@ -2,7 +2,6 @@ import React from "react"
 import * as firebase from "firebase"
 import { ThemeProvider } from '@material-ui/core/styles';
 import Evaluation from '../evaluation/Evaluation'
-import ReviewSummary from './ReviewSummary'
 import Loading from '../../util/Loading'
 import HomeButton from '../../util/HomeButton'
 
@@ -19,7 +18,8 @@ class Review extends React.Component {
             reviewQueue: this.props.reviewQueue.slice(0, 10), // 10 at most at once
             prototypes: null,
             selected: 0,
-            reviewMode: "loading"
+            reviewMode: "loading",
+            showSummary: false
         }
         this.getPrototypes = this.getPrototypes.bind(this)
         this.onPass = this.onPass.bind(this)
@@ -53,7 +53,7 @@ class Review extends React.Component {
     onPass(obj, remaining) { //TODO:
         if (remaining === 0){
             this.setState({
-                reviewMode: "summary"
+                showSummary: true
             })
         }
 
@@ -118,14 +118,10 @@ class Review extends React.Component {
                             colors={this.props.colors}
                             prototypes = {this.state.prototypes} 
                             onPass = {this.onPass}
-                        />
-        
-        const summary = <ReviewSummary
-                            theme = {this.props.theme} 
-                            colors={this.props.colors}
-                            prototypes = {this.state.prototypes} 
+                            type = {"lesson"}
                             activePanelHandler = {this.props.activePanelHandler}
-                    />
+                            showSummary = {this.state.showSummary}
+                        />
                         
         let reviewModuleContent
         switch (this.state.reviewMode) {
@@ -134,9 +130,6 @@ class Review extends React.Component {
                 break;
             case "evaluation":
                 reviewModuleContent = evaluation    
-                break;
-            case "summary":
-                reviewModuleContent = summary    
                 break;
             default:
                 reviewModuleContent = <p>Ошибка! Обратитесь в техподдержку</p>   
