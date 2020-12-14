@@ -254,7 +254,6 @@ class EvaluationCard extends React.Component {
                             color = "primary"
                             disabled = {this.state.resolved ? true : false}
                             name = "answer"
-                            onKeyPress={this.handleSubmitKeypress}
                             type = "answer"
                             value = {this.state.answer}
                             onChange = {this.evaluationChangeHandler}
