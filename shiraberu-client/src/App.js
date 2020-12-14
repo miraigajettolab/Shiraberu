@@ -7,6 +7,7 @@ import Home from "./panels/home/Home"
 import Loading from "./util/Loading"
 import Lesson from './panels/lesson/Lesson'
 import Greeting from './panels/greeting/Greeting'
+import Review from './panels/review/Review'
 
 import * as firebase from "firebase"
 import { createMuiTheme } from '@material-ui/core/styles';
@@ -52,6 +53,11 @@ class App extends React.Component {
     this.activePanelHandler("Lesson")
   }
 
+  handleReview(queue){
+    this.setState({reviewQueue: queue})
+    this.activePanelHandler("Review")
+  }
+
   render() 
   {
   const theme = createMuiTheme({
@@ -80,9 +86,11 @@ class App extends React.Component {
       case "Loading":
         return <Loading theme={theme}/>
       case "Home":
-        return <Home activePanelHandler = {this.activePanelHandler} handleLesson = {this.handleLesson} theme={theme}/>
+        return <Home activePanelHandler = {this.activePanelHandler} handleLesson = {this.handleLesson} handleReview={this.handleReview} theme={theme}/>
       case "Lesson":
         return <Lesson activePanelHandler = {this.activePanelHandler} lessonQueue = {this.state.lessonQueue} theme={theme} colors={colors}/>
+      case "Review":
+        return <Review activePanelHandler = {this.activePanelHandler} reviewQueue = {this.state.reviewQueue} theme={theme} colors={colors}/>
       case "SignIn":
         return <SignIn activePanelHandler = {this.activePanelHandler} theme={theme}/>
       case "SignUp":
