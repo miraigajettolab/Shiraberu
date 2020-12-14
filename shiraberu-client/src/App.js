@@ -41,6 +41,7 @@ class App extends React.Component {
       }.bind(this))
       this.activePanelHandler = this.activePanelHandler.bind(this)
       this.handleLesson = this.handleLesson.bind(this)
+      this.handleReview = this.handleReview.bind(this)
   }
 
 

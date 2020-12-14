@@ -3,6 +3,7 @@ import * as firebase from "firebase"
 import { ThemeProvider } from '@material-ui/core/styles';
 import Evaluation from '../evaluation/Evaluation'
 import ReviewSummary from './ReviewSummary'
+import Loading from '../../util/Loading'
 
 /*REQUIRED PROPS:
     *activePanelHandler
@@ -14,10 +15,10 @@ class Review extends React.Component {
     constructor(props) {
     super(props)
         this.state = {
-            reviewQueue: this.props.reviewQueue,
+            reviewQueue: this.props.reviewQueue.slice(0, 10), // 10 at most at once
             prototypes: null,
             selected: 0,
-            reviewMode: "evaluation"
+            reviewMode: "loading"
         }
         this.getPrototypes = this.getPrototypes.bind(this)
         this.onPass = this.onPass.bind(this)
@@ -32,7 +33,8 @@ class Review extends React.Component {
             console.log("Call to getPrototypes() took " + (t1 - t0) + " milliseconds.")
             let reviewsData = protsSnapshot.docs.map(doc => doc.data())
             this.setState({
-                prototypes: reviewsData
+                prototypes: reviewsData,
+                reviewMode: "evaluation"
             })
             console.log(this.state.prototypes) //TEST
             return 0
@@ -69,13 +71,16 @@ class Review extends React.Component {
             .then(indexSnap => {
                 let indexItem = indexSnap.data()[obj.id]
                 if(obj.didFail){
-                    indexItem.srs = null//TODO::
+                    // if srs is one just leave it the same (no need to go to 0)
+                    if(indexItem.srs !== 1){
+                        indexItem.srs = indexItem.srs  - (indexItem.srs >= 5 ? 2 : 1);
+                    }
                 }
                 else {
-                    indexItem.srs = null//TODO::
+                    indexItem.srs += 1;
                 }
                 const currentTimestamp = new Date().getTime()
-                indexItem.due = currentTimestamp + srs.stages[1].interval*1000;
+                indexItem.due = currentTimestamp + srs.stages[indexItem.srs].interval*1000;
                 indexRef.update({[obj.id] : indexItem})
                 /*.then(obj => {
                     extraDataRef.set({
@@ -123,6 +128,9 @@ class Review extends React.Component {
                         
         let reviewModuleContent
         switch (this.state.reviewMode) {
+            case "loading":
+                reviewModuleContent = <Loading /> 
+                break;
             case "evaluation":
                 reviewModuleContent = evaluation    
                 break;
