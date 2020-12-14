@@ -4,6 +4,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import Evaluation from '../evaluation/Evaluation'
 import LessonCard from './LessonCard'
 import LessonSummary from './LessonSummary'
+import HomeButton from '../../util/HomeButton'
 
 /*REQUIRED PROPS:
     *activePanelHandler
@@ -192,11 +193,16 @@ class Lesson extends React.Component {
         }
 
         return (
-                <div className="Lesson" style={{maxWidth: "80%", marginLeft: "10%", marginTop: "10%"}}>
+                <dvi>
                     <ThemeProvider theme={this.props.theme}>
-                        {lessonModuleContent}
+                        <HomeButton go={this.props.activePanelHandler}/>
                     </ThemeProvider>
-                </div>
+                    <div className="Lesson" style={{maxWidth: "80%", marginLeft: "10%", marginTop: "0%"}}>
+                        <ThemeProvider theme={this.props.theme}>
+                            {lessonModuleContent}
+                        </ThemeProvider>
+                    </div>
+                </dvi>
         )
     }
 } 

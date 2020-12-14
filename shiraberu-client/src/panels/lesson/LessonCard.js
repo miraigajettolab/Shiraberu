@@ -19,6 +19,38 @@ class LessonCard extends React.Component {
     constructor(props) {
     super(props)
         this.state = {}
+        this.handleLessonCardKeypress = this.handleLessonCardKeypress.bind(this)
+    }
+
+    handleLessonCardKeypress(event){
+        let code = event.keyCode || event.which;
+        if (code === 13) {
+            if(this.props.selected !== this.props.lessonQueueLength-1){
+                this.props.handleRightClick();
+            }
+            else {
+                this.props.handleLessonQuiz();
+            }
+        }
+        if (code === 39) {
+            if(this.props.selected !== this.props.lessonQueueLength-1){
+                this.props.handleRightClick();
+            }
+        }
+        if (code === 37) {
+            if(this.props.selected !== 0) {
+                this.props.handleLeftClick();
+            }
+        }
+    }
+    
+    componentDidMount(){
+        document.addEventListener("keydown", this.handleLessonCardKeypress)
+    }
+
+    componentWillUnmount(){
+        // removing listener when the component is unmounted
+        document.removeEventListener("keydown", this.handleLessonCardKeypress)
     }
 
     render() {
