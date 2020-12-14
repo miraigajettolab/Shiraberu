@@ -2,7 +2,6 @@ import React from "react"
 import * as firebase from "firebase"
 import { ThemeProvider } from '@material-ui/core/styles';
 import AppBar from './AppBar'
-
 import Button from '@material-ui/core/Button';
 
 
@@ -23,6 +22,7 @@ class Home extends React.Component {
         this.countReviews = this.countReviews.bind(this)
         this.countLessons = this.countLessons.bind(this)
         this.handleLesson = this.handleLesson.bind(this)
+        this.handleReview = this.handleReview.bind(this)
     }
 
     signOutHandler() {
@@ -32,7 +32,17 @@ class Home extends React.Component {
 
     countReviews(){
         var t0 = performance.now()
-        //TODO:
+        const currentTimestamp = new Date().getTime()
+        let reviewQueue = []
+        Object.keys(this.state.itemsIdx).forEach(key => {
+            // if exists and less than current time
+            if(this.state.itemsIdx[key].due && this.state.itemsIdx[key].due < currentTimestamp) {
+                reviewQueue.push(key)
+            }
+        })
+        this.setState({
+            "reviewQueue": reviewQueue
+        })
         var t1 = performance.now()
         console.log("Call to countReviews() took " + (t1 - t0) + " milliseconds.")
     }
@@ -107,6 +117,10 @@ class Home extends React.Component {
         this.props.handleLesson(this.state.lessonQueue)
     }
 
+    handleReview(){
+        this.props.handleReview(this.state.reviewQueue)
+    }
+
     componentDidMount(){
         this.getIndices();
     }
@@ -120,13 +134,22 @@ class Home extends React.Component {
                 <div className="Home" style={{maxWidth: "80%", marginLeft: "10%", marginTop: "20px"}}>
                     <ThemeProvider theme={this.props.theme}>
                         <Button
-                            style = {{height: "120px"}}
+                            style = {{height: "120px", marginRight: "10px", marginBottom: "10px"}}
                             className="ExtraContainerChild"
                             variant="contained" 
                             disabled = { this.state.lessonQueue && this.state.lessonQueue.length > 0 ? false : true}
                             color="secondary" 
                             onClick={this.handleLesson}>
                                 Уроки: {this.state.lessonQueue ? this.state.lessonQueue.length: ""}
+                        </Button>
+                        <Button
+                            style = {{height: "120px", marginBottom: "10px"}}
+                            className="ExtraContainerChild"
+                            variant="contained" 
+                            disabled = { this.state.reviewQueue && this.state.reviewQueue.length > 0 ? false : true}
+                            color="primary" 
+                            onClick={this.handleReview}>
+                                Ревью: {this.state.reviewQueue ? this.state.reviewQueue.length: ""}
                         </Button>
                     </ThemeProvider>
                 </div>
