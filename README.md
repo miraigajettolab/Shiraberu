@@ -13,21 +13,31 @@
 ## Требования: 
 * **1)** Разработать систему, которая разбивает процесс изучения большого количества кандзи(иероглифов) и слов на последовательный список простых действий: изучение и повторение, используя систему интервального повторения (Spaced Repetition System) и мнемоники. 
 * **2)** Для повторения слов также необходимо разработать систему транслитерации кириллицы в хирагану (в ней возможно записать любую последовательность звуков в японском языке). Этот пункт будет модификацией уже существующей библиотеки транслитерации латиницы в хирагану (транслитерация будет по схеме кириллица -> хирагана, а не кириллица -> латиница -> хирагана)
-     * *[С репозиторием можно ознакомиться здесь](https://github.com/miraigajettolab/kikana)*
-     * [Попробовать транскрипцию можно тут](https://kikana-dev-test.surge.sh) *(В форму вводится кириллица, хирагана появляется в шапке страницы)*
+     * *[С репозиторием можно ознакомиться здесь](https://github.com/miraigajettolab/kikana/tree/dev-cyrillic)*
+     * [Попробовать транслитерацию можно тут](https://kikana-dev-test.surge.sh) *(В форму вводится кириллица, хирагана появляется в шапке страницы)*
 * **3)** Необходимо заполнить разработанную в 1) систему некоторым количеством реальных слов кандзи и радикалов (кандзи состоят из радикалов).
 
 ## Архитектура:
-[Сейчас неформальную архитектуру можно посмотреть тут](https://github.com/miraigajettolab/Shiraberu/tree/master/Architecture)
-##### Используемые технологии:
-* Backend будет реализован на инфраструктуре google firebase используя firestore(nosql database) в качестве БД и cloud functions для API
-* Пользовательский фронт будет доступен по адресу: https://shirabe.ru
+
+[Неформальную архитектуру можно посмотреть тут](https://github.com/miraigajettolab/Shiraberu/tree/master/Architecture)
+
+[То же самое со спецификациями](https://github.com/miraigajettolab/Shiraberu/blob/master/Specifications/Specs.md)
+
+## Используемые технологии:
+* Библиотека транслитерации *[КиКана](https://github.com/miraigajettolab/kikana/tree/dev-cyrillic)* написана на чистом JS и подключена к этому проекту в качестве подмодуля
+* Пользовательский фронт разработан на React JS и доступен по адресу: https://shirabe.ru
+    * использована библиотека ui компонентов Material-UI
+    * адаптивный веб-дизайн
+    * юнит тесты написаны с использованием Jest
+* Backend реализован на инфраструктуре Google Firebase используя Firestore(nosql database) в качестве БД, Cloud Functions и Firebase Auth
+    * юнит тесты для Cloud Functions написаны с использованием Mocha и эмулятора Firebase сервисов
+* Для CI используются Github Actions, yaml скрипты: тестов, сборки и деплоя можно посмотреть в [.github/workflows](https://github.com/miraigajettolab/Shiraberu/tree/master/.github/workflows)
 ---
 ## Пример урока
 
 <img src="https://github.com/miraigajettolab/Shiraberu/blob/master/Misc/lesson_test.gif" width="282" height="532">
 
-## Пример непрерывной транскрипции кирилицы в хирагану
+## Пример непрерывной транскрипции кириллицы в хирагану
 ### акихабара -> あきはばら
 
 <img src="https://github.com/miraigajettolab/Shiraberu/blob/master/Misc/kikana_demo.gif" width="300" height="348">
