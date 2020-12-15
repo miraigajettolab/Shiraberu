@@ -1,4 +1,4 @@
-# Описание проекта shirabe.ru
+# Описание проекта [shirabe.ru](https://shirabe.ru/)
 ## Участники проекта: 
 | Имя | Роли | Github | VK | 
 | --- | --- | --- |--- | 
@@ -19,9 +19,15 @@
 
 ## Архитектура:
 
-[Неформальную архитектуру можно посмотреть тут](https://github.com/miraigajettolab/Shiraberu/tree/master/Architecture)
+#### System context diagram:
+![alt text](https://github.com/miraigajettolab/Shiraberu/blob/master/Misc/System_context_diagram.png)
 
-[То же самое со спецификациями](https://github.com/miraigajettolab/Shiraberu/blob/master/Specifications/Specs.md)
+#### Container diagram:
+![alt text](https://github.com/miraigajettolab/Shiraberu/blob/master/Misc/Container%20diagram.png)
+
+[Нефомальные спецификации можно посмотреть тут](https://github.com/miraigajettolab/Shiraberu/blob/master/Specifications/Specs.md)
+
+[Описание типов данных и SRS можно посмотреть тут](https://github.com/miraigajettolab/Shiraberu/tree/master/Architecture)
 
 ## Используемые технологии:
 * Библиотека транслитерации *[КиКана](https://github.com/miraigajettolab/kikana/tree/dev-cyrillic)* написана на чистом JS и подключена к этому проекту в качестве подмодуля
