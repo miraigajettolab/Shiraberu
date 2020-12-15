@@ -23,3 +23,11 @@
 * Backend будет реализован на инфраструктуре google firebase используя firestore(nosql database) в качестве БД и cloud functions для API
 * Пользовательский фронт будет доступен по адресу: https://shirabe.ru
 ---
+## Пример урока
+
+<img src="https://github.com/miraigajettolab/Shiraberu/blob/master/Misc/lesson_test.gif" width="282" height="532">
+
+## Пример непрерывной транскрипции кирилицы в хирагану
+### акихабара -> あきはばら
+
+<img src="https://github.com/miraigajettolab/Shiraberu/blob/master/Misc/kikana_demo.gif" width="300" height="348">
