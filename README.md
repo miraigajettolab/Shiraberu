@@ -56,8 +56,12 @@
     *   Для непрерывной транскрипции кириллицы в хирагану используя КиКану на [этих данных](https://github.com/miraigajettolab/Shiraberu/blob/master/shiraberu-client/test/panels/evaluation/umiyuriSongLyrics.js)
     *   * [That transcription method works correctly on proper data](https://github.com/miraigajettolab/Shiraberu/blob/e5509e0626d1ebace7bc5a2431b1f2d78a39d874/shiraberu-client/test/panels/evaluation/EvaluationCard.test.js#L18)
     *   * [That transcription method works correctly on sloppy data](https://github.com/miraigajettolab/Shiraberu/blob/e5509e0626d1ebace7bc5a2431b1f2d78a39d874/shiraberu-client/test/panels/evaluation/EvaluationCard.test.js#L47)
-    * Для App.js проверяется, правильный ли компонент показывается пользователю после перехода между компонентами
-    *   * [That routing works](https://github.com/miraigajettolab/Shiraberu/blob/master/shiraberu-client/test/App.test.js)
+    * Для App.js проверяется, правильный ли компонент показывается пользователю
+    *   * [That new user is shown greeting](https://github.com/miraigajettolab/Shiraberu/blob/b5a09cab0d9f4149ff3f0f5135e9fcfdc71ca1ee/shiraberu-client/test/App.test.js#L79)
+    *   * [That greeting is shown only once](https://github.com/miraigajettolab/Shiraberu/blob/b5a09cab0d9f4149ff3f0f5135e9fcfdc71ca1ee/shiraberu-client/test/App.test.js#L89)
+    *   * [That old user is shown home](https://github.com/miraigajettolab/Shiraberu/blob/b5a09cab0d9f4149ff3f0f5135e9fcfdc71ca1ee/shiraberu-client/test/App.test.js#L102)
+    *   * [That unauthorised user is shown sing in](https://github.com/miraigajettolab/Shiraberu/blob/b5a09cab0d9f4149ff3f0f5135e9fcfdc71ca1ee/shiraberu-client/test/App.test.js#L112)
+    *   * [That routing works](https://github.com/miraigajettolab/Shiraberu/blob/b5a09cab0d9f4149ff3f0f5135e9fcfdc71ca1ee/shiraberu-client/test/App.test.js#L119)
 
 ## CI:
 * [Test Cloud Functions](https://github.com/miraigajettolab/Shiraberu/blob/master/.github/workflows/firebase-emulators-ci.yaml) - on push/pull request, проводит тесты Cloud Functions
