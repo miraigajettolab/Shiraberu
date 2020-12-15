@@ -56,7 +56,7 @@
 ## CI:
 * [Test Cloud Functions](https://github.com/miraigajettolab/Shiraberu/blob/master/.github/workflows/firebase-emulators-ci.yaml) - on push/pull request, проводит тесты Cloud Functions
 * [Test Frontend Code](https://github.com/miraigajettolab/Shiraberu/blob/master/.github/workflows/frontend-tests-ci.yaml) - on push/pull request, проводит тесты фронта и библиотеки транслитерации
-* [Build and Deploy](https://github.com/miraigajettolab/Shiraberu/blob/master/.github/workflows/deploying.yml) - on push/pull request, собирает проект и деплоит его на сервера Firebase
+* [Build and Deploy](https://github.com/miraigajettolab/Shiraberu/blob/master/.github/workflows/deploying.yml) - on push/pull request, собирает проект и деплоит его на сервера Firebase (Можно использовать этот скрипт для локальной сборки, убрав последний шаг и заменив команду в предпоследнем на npm start)
 
 ---
 
