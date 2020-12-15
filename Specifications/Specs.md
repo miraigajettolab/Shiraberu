@@ -72,15 +72,3 @@ User needs to be able to have access to each item for reference.
 * Each item page should have statistics of past reviews, timestamp of next review, user added content and other relevant data.
 
 Item pages should enable user to add his own synonyms and notes to an item.
-
-### 2.2 Assumptions and Dependencies
-
-# 3. System Features and Requirements
-
-### 3.1 Functional Requirements
-
-### 3.2 External Interface Requirements
-
-### 3.3 System Features
-
-### 3.4 Nonfunctional Requirements
