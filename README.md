@@ -55,7 +55,7 @@
     *   * [That Evaluation module handles incorrect inputs (that still eventually pass)](https://github.com/miraigajettolab/Shiraberu/blob/e5509e0626d1ebace7bc5a2431b1f2d78a39d874/shiraberu-client/test/panels/evaluation/Evaluation.test.js#L86)
     *   Для непрерывной транскрипции кириллицы в хирагану используя КиКану на [этих данных](https://github.com/miraigajettolab/Shiraberu/blob/master/shiraberu-client/test/panels/evaluation/umiyuriSongLyrics.js)
     *   * [That transcription method works correctly on proper data](https://github.com/miraigajettolab/Shiraberu/blob/e5509e0626d1ebace7bc5a2431b1f2d78a39d874/shiraberu-client/test/panels/evaluation/EvaluationCard.test.js#L18)
-    *   * [That transcription method works correctly on sloppy data](https://github.com/miraigajettolab/Shiraberu/blob/e5509e0626d1ebace7bc5a2431b1f2d78a39d874/shiraberu-client/test/panels/evalualoion/EvaluationCard.test.js#L47)
+    *   * [That transcription method works correctly on sloppy data](https://github.com/miraigajettolab/Shiraberu/blob/e5509e0626d1ebace7bc5a2431b1f2d78a39d874/shiraberu-client/test/panels/evaluation/EvaluationCard.test.js#L47)
     * Для App.js проверяется, правильный ли компонент показывается пользователю после перехода между компонентами
     *   * [That routing works](https://github.com/miraigajettolab/Shiraberu/blob/master/shiraberu-client/test/App.test.js)
 
