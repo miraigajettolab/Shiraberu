@@ -17,33 +17,36 @@ class App extends React.Component {
   constructor(props) {
       super(props)
       this.state = {activePanel: "Loading"}
-      firebase.auth().onAuthStateChanged(function(user) {
-          if (user) {
-            const metadata = firebase.auth().currentUser.metadata
-            //Show greeting only to users who logged in for the first time
-            if (metadata.creationTime === metadata.lastSignInTime) {
-                //We need to show this only once ever, so let's use localStorage to store if we did
-                let alerted = localStorage.getItem('alerted'+user.uid) || '';
-                if (alerted !== "yes") {
-                  this.setState({activePanel: "Greeting"})
-                  localStorage.setItem('alerted'+user.uid, "yes")
-                }
-                else { //If the user is logged in for the first time but already saw the greeting 
-                  this.setState({activePanel: "Home"})
-                }
-            } 
-            else {
-              this.setState({activePanel: "Home"})
-            }
-          } else {
-              this.setState({activePanel: "SignIn"})
-          }
-      }.bind(this))
+
       this.activePanelHandler = this.activePanelHandler.bind(this)
       this.handleLesson = this.handleLesson.bind(this)
       this.handleReview = this.handleReview.bind(this)
   }
 
+  componentDidMount(){
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        const metadata = firebase.auth().currentUser.metadata
+        //Show greeting only to users who logged in for the first time
+        if (metadata.creationTime === metadata.lastSignInTime) {
+            //We need to show this only once ever, so let's use localStorage to store if we did
+            let alerted = localStorage.getItem('alerted'+user.uid) || '';
+            if (alerted !== "yes") {
+              this.setState({activePanel: "Greeting"})
+              localStorage.setItem('alerted'+user.uid, "yes")
+            }
+            else { //If the user is logged in for the first time but already saw the greeting 
+              this.setState({activePanel: "Home"})
+            }
+        } 
+        else {
+          this.setState({activePanel: "Home"})
+        }
+      } else {
+          this.setState({activePanel: "SignIn"})
+      }
+  }.bind(this))
+  }
 
   activePanelHandler(nextPanel, event = null) {
       this.setState({activePanel: nextPanel})
