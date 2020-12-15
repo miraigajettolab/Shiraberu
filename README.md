@@ -33,7 +33,12 @@
     * юнит тесты для Cloud Functions написаны с использованием Mocha и эмулятора Firebase сервисов
 * Для CI используются Github Actions, yaml скрипты: тестов, сборки и деплоя можно посмотреть в [.github/workflows](https://github.com/miraigajettolab/Shiraberu/tree/master/.github/workflows)
 
-## Unit тесты
+## Исходный код:
+* [Пользовательский фронт(web приложение)](https://github.com/miraigajettolab/Shiraberu/tree/master/shiraberu-client/src)
+* [Библиотека транслитерации](https://github.com/miraigajettolab/kikana/tree/dev-cyrillic/src)
+* [Cloud Functions](https://github.com/miraigajettolab/Shiraberu/tree/master/shiraberu-client/functions)
+
+## Unit тесты:
 * Для тестирования единственной Firebase Cloud Function - [shiraberu-client/functions/test](https://github.com/miraigajettolab/Shiraberu/tree/master/shiraberu-client/functions/test)
     * [Add User](https://github.com/miraigajettolab/Shiraberu/blob/e5509e0626d1ebace7bc5a2431b1f2d78a39d874/shiraberu-client/functions/test/index.test.js#L33) - тестирует, что на некотором индексе [прототипов](https://github.com/miraigajettolab/Shiraberu/blob/master/Architecture/Data%20types.md) для нового пользователя корректно создается индекс в котором указаны радикалы/кандзи/слова доступные для изучения и повторения
 * Для тестирования фронта и библиотеки транслитерации - [shiraberu-client/test](https://github.com/miraigajettolab/Shiraberu/tree/master/shiraberu-client/test)
@@ -44,16 +49,24 @@
     *   * [That Evaluation module handles incorrect inputs (that still eventually pass)](https://github.com/miraigajettolab/Shiraberu/blob/e5509e0626d1ebace7bc5a2431b1f2d78a39d874/shiraberu-client/test/panels/evaluation/Evaluation.test.js#L86)
     *   Для непрерывной транскрипции кириллицы в хирагану используя КиКану на [этих данных](https://github.com/miraigajettolab/Shiraberu/blob/master/shiraberu-client/test/panels/evaluation/umiyuriSongLyrics.js)
     *   * [That transcription method works correctly on proper data](https://github.com/miraigajettolab/Shiraberu/blob/e5509e0626d1ebace7bc5a2431b1f2d78a39d874/shiraberu-client/test/panels/evaluation/EvaluationCard.test.js#L18)
-    *   * [That transcription method works correctly on sloppy data](https://github.com/miraigajettolab/Shiraberu/blob/e5509e0626d1ebace7bc5a2431b1f2d78a39d874/shiraberu-client/test/panels/evaluation/EvaluationCard.test.js#L47)
+    *   * [That transcription method works correctly on sloppy data](https://github.com/miraigajettolab/Shiraberu/blob/e5509e0626d1ebace7bc5a2431b1f2d78a39d874/shiraberu-client/test/panels/evalualoion/EvaluationCard.test.js#L47)
     * Для App.js проверяется, правильный ли компонент показывается пользователю после перехода между компонентами
     *   * [That routing works](https://github.com/miraigajettolab/Shiraberu/blob/master/shiraberu-client/test/App.test.js)
-    
 
-## Пример урока
+## CI:
+* [Test Cloud Functions](https://github.com/miraigajettolab/Shiraberu/blob/master/.github/workflows/firebase-emulators-ci.yaml) - on push/pull request, проводит тесты Cloud Functions
+* [Test Frontend Code](https://github.com/miraigajettolab/Shiraberu/blob/master/.github/workflows/frontend-tests-ci.yaml) - on push/pull request, проводит тесты фронта и библиотеки транслитерации
+* [Build and Deploy](https://github.com/miraigajettolab/Shiraberu/blob/master/.github/workflows/deploying.yml) - on push/pull request, собирает проект и деплоит его на сервера Firebase
+
+---
+
+## Примеры:
+
+### Использования:
 
 <img src="https://github.com/miraigajettolab/Shiraberu/blob/master/Misc/lesson_test.gif" width="282" height="532">
 
-## Пример непрерывной транскрипции кириллицы в хирагану
-### акихабара -> あきはばら
+### Непрерывной транслитерации кириллицы в хирагану:
+#### акихабара -> あきはばら
 
 <img src="https://github.com/miraigajettolab/Shiraberu/blob/master/Misc/kikana_demo.gif" width="300" height="348">
