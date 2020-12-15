@@ -61,9 +61,12 @@ class LessonCard extends React.Component {
             let mnemonics;
             let mainMeaning = current.meanings.filter(m => m.is_primary)[0].text
             let characters = current.characters
+            let extra
+            let example
 
             if(current.type === "R") {
                 currentColor = this.props.colors.radicals;
+                extra= <p><b>Тип: </b>{"Радикал" + (current.extra_data ? ", " + current.extra_data  : "")}</p>
                 mnemonics = 
                     <Typography variant="body2" component="p">
                         <b>Мнемоника значения:</b>
@@ -72,6 +75,7 @@ class LessonCard extends React.Component {
             }
             else if(current.type === "K") {
                 currentColor = this.props.colors.kanji;
+                extra= <p><b>Тип: </b>{"Кандзи" + (current.extra_data ? ", " + current.extra_data  : "")}</p>
                 mnemonics = 
                     <Typography variant="body2" component="p">
                         <b>Мнемоника значения:</b>
@@ -82,6 +86,7 @@ class LessonCard extends React.Component {
             }
             else if (current.type === "V")  {
                 currentColor = this.props.colors.vocab;
+                extra= <p><b>Тип: </b>{"Слово" + (current.extra_data ? ", " + current.extra_data  : "")}</p>
                 mnemonics = 
                     <Typography variant="body2" component="p">
                         <b>Мнемоника значения:</b>
@@ -89,6 +94,12 @@ class LessonCard extends React.Component {
                         <b>Мнемоника чтения:</b>
                         <p>{current.reading_mnemonic}</p>
                     </Typography>
+                if(current.sentences){
+                    example =   <Typography variant="body2" component="p">
+                    <b>Пример:</b>
+                <p><i>{current.sentences[0].text}</i>　ー　{current.sentences[0].translation}</p>
+                </Typography>
+                }
             }
             else {
                 currentColor = "red"
@@ -115,7 +126,9 @@ class LessonCard extends React.Component {
             <hr color={"#EEEEEE"}/>
             <CardContent>
                 <Typography variant="body2" component="p">
+                {extra}
                 {mnemonics}
+                {example}
                 </Typography>
             </CardContent>
             <CardActions>
