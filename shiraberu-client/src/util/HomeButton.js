@@ -19,7 +19,6 @@ const useStyles = makeStyles((theme) => ({
 export default function HomeButton(props) {
   const classes = useStyles();
 
-  //you have to provide id in all three places
   return (
     <div className={classes.root}>
         <Toolbar>
