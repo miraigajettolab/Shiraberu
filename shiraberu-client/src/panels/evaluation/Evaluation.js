@@ -136,7 +136,7 @@ class Evaluation extends React.Component {
                     }
                     return new Promise(function(resolve, reject) {
                         resolve({
-                            "msg":"Неверно 😢",
+                            "msg":"Неверно, ответ: " + readings[0],
                             "status":"error",
                         })
                     })
@@ -170,7 +170,7 @@ class Evaluation extends React.Component {
                     }
                     return new Promise(function(resolve, reject) {
                         resolve({
-                            "msg":"Неверно 😢",
+                            "msg":"Неверно, ответ: " + readings[0],
                             "status":"error",
                         })
                     })
@@ -198,7 +198,7 @@ class Evaluation extends React.Component {
                 }
                 return new Promise(function(resolve, reject) {
                     resolve({
-                        "msg":"Неверно 😢",
+                        "msg":"Неверно, ответ: " + meanings[0],
                         "status":"error",
                     })
                 })
