@@ -2,6 +2,7 @@ import React from "react"
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { ThemeProvider } from '@material-ui/core/styles';
+import Logo from '../../util/Logo'
 
 /*REQUIRED PROPS:
     *activePanelHandler
@@ -16,6 +17,7 @@ class Greeting extends React.Component {
     render() {
         return (<div className="Сontainer">
             <ThemeProvider theme={this.props.theme}>
+                <Logo />
                 <Typography variant="h5" component="h5" style = {{textAlign: "center", marginBottom: "10px"}}>
                 Добро пожаловать на shirabe.ru
                 </Typography>
