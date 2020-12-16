@@ -21,7 +21,7 @@ exports.addUser = functions.region('europe-west3').firestore.document('Users/{do
             db.collection('Users').doc(snapshot.id).collection('Items').doc("index").set(store)
             return 0;
         })
-        .catch(function(error) {
+        .catch(error => {
             console.log("Error: ", error);
             return -1;
         })
