@@ -1,10 +1,17 @@
+## Примеры:
+
+### Использования:
+
+<img src="https://github.com/miraigajettolab/Shiraberu/blob/master/Misc/lesson_test.gif" width="282" height="532">
+
+### Непрерывной транслитерации кириллицы в хирагану:
+#### акихабара -> あきはばら
+
+<img src="https://github.com/miraigajettolab/Shiraberu/blob/master/Misc/kikana_demo.gif" width="300" height="348">
+
+---
+
 # Описание проекта [shirabe.ru](https://shirabe.ru/)
-## Участники проекта: 
-| Имя | Роли | Github | VK | 
-| --- | --- | --- |--- | 
-| Григоренко Сергей | Руководитель, Разработчик, Архитектор | [miraigajettolab](https://github.com/miraigajettolab) | [donotatme](https://vk.com/donotatme) | 
-| Дружинин Владислав  | Работа с документами, Писатель | [TheVaultBoy](https://github.com/TheVaultBoy) | [the_vault_boy](https://vk.com/the_vault_boy) | 
-| Магомедов Артур | Написание тестов, Писатель | | [mag.artur](https://vk.com/mag.artur) |
 
 ## Определение проблемы:
 - Японский - один из самых сложных для изучения языков, особенно учитывая непохожесть его на наш язык. Один из ключевых моментов в изучении языка это изучение слов. Однако, учитывая сложную структуру письменности японского языка для изучения слова нужно сперва изучить знаки (кандзи, 
@@ -67,16 +74,3 @@
 * [Test Cloud Functions](https://github.com/miraigajettolab/Shiraberu/blob/master/.github/workflows/firebase-emulators-ci.yaml) - on push/pull request, проводит тесты Cloud Functions
 * [Test Frontend Code](https://github.com/miraigajettolab/Shiraberu/blob/master/.github/workflows/frontend-tests-ci.yaml) - on push/pull request, проводит тесты фронта и библиотеки транслитерации
 * [Build and Deploy](https://github.com/miraigajettolab/Shiraberu/blob/master/.github/workflows/deploying.yml) - on push/pull request, собирает проект и деплоит его на сервера Firebase (Можно использовать этот скрипт для локальной сборки, убрав последний шаг и заменив команду в предпоследнем на npm start)
-
----
-
-## Примеры:
-
-### Использования:
-
-<img src="https://github.com/miraigajettolab/Shiraberu/blob/master/Misc/lesson_test.gif" width="282" height="532">
-
-### Непрерывной транслитерации кириллицы в хирагану:
-#### акихабара -> あきはばら
-
-<img src="https://github.com/miraigajettolab/Shiraberu/blob/master/Misc/kikana_demo.gif" width="300" height="348">
